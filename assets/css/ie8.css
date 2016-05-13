@@ -1,26 +1,42 @@
 /*
-	Aerial by HTML5 UP
+	Strongly Typed by HTML5 UP
 	html5up.net | @n33co
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
-/* Header */
+/* Basic */
 
-	#header nav a {
+	form input[type="text"],
+	form input[type="email"],
+	form input[type="password"],
+	form select,
+	form textarea {
 		position: relative;
-		border: solid 1px #fff;
-		border-radius: 100%;
 		-ms-behavior: url("assets/js/ie/PIE.htc");
 	}
 
-		#header nav a:before {
-			border: 0;
-		}
+	input[type="button"],
+	input[type="submit"],
+	input[type="reset"],
+	button,
+	.button {
+		position: relative;
+		-ms-behavior: url("assets/js/ie/PIE.htc");
+	}
 
-/* Footer */
+	.button, .box.excerpt .date {
+		position: relative;
+		-ms-behavior: url("assets/js/ie/PIE.htc");
+	}
 
-	#footer {
-		background-image: url("images/ie/footer.png");
-		background-position: bottom left;
-		background-repeat: repeat-x;
+/* Sections/Article */
+
+	section > .last-child, section.last-child, article > .last-child, article.last-child {
+		margin-bottom: 0;
+	}
+
+/* Wrappers */
+
+	#banner-wrapper .inner {
+		-ms-behavior: url("assets/js/ie/backgroundsize.min.htc");
 	}
