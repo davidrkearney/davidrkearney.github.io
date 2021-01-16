@@ -1,0 +1,526 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search &#8212; Hands On Data Science at Scale with PySpark, Dask and H2O.</title>
+    
+  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="#" />
+  <script src="searchindex.js" defer></script>
+  
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Hands On Data Science at Scale with PySpark, Dask and H2O.</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="#" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-25-ARIMA-ADF-FORECASTING.html">
+   Stock Market Analysis of the S&amp;P 500 Index using ARIMA and Seasonal ARIMA for forecasting
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-17-Pyspark-Group-By.html">
+   Group By and Aggregation with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-22-Window%20functions%20and%20Pivot%20Tables%20with%20Pyspark.html">
+   Window functions and Pivot Tables with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-29-Clustering%20with%20Pyspark.html">
+   Clustering with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-27-sql_calls_in_jupyter_Soccer_Pred.html">
+   Working with sqlite databases in Jupyter for Visualizing European Soccer Match Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-19-ttests-distributions-crosstabs-functions.html">
+   Evaluating Distributions and generating Experimental Crosstabs for the Evaluation of Experiments as well as Experimental Comparisons with T-Tests, Purpose Assumptions, Corrections and Implementations in Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-24-AnalyzingUSRealInterestRate.html">
+   Analyzing US Real Interest Rate From 1959 - 2009 with statsmodels
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-30-NLP%20with%20Pyspark.html">
+   NLP with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-19-Pyspark-Filtering.html">
+   Dataframe Filitering and Operations with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-28-PCA-with-sklearn.html">
+   Principal component analysis with sklearn
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-20-Dask-Diab.html">
+   Dask for Predicting Onset/Diagnosis of Chronic Conditions, Diabetes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-17-dask-NLP-gutenberg-books.html">
+   Using Dask with dask.bag and regex to parse Notes from the Underground from project gutenberg
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-17-dask-NLP-gutenberg-books.html#removing-stop-words-in-top-word-frequency-counts">
+   Removing stop words in top word frequency counts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-30-StockMarketPortfolioAnaylsis_snp.html">
+   Stock Market and Portfolio Anaylsis of the S&amp;P 500 with pandas and quandl
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-10-Dask_Fiscal-db-to-dask-dataframe.html">
+   Working with dask data frames. Reading Fiscal Data from a sqlite db to a dask dataframe. Computing, visualizing and groupby with dask dataframes. Using dask.distributed locally.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-20-Pyspark-Dataframes-Data-Types.html">
+   Dataframes, Formatting, Casting Data Type and Correlation with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-13-dask-xgboost-fiscal-data.html">
+   Moving Dask XGboost with Fiscal Data, saving and loading Dask XGboost models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-12-dask-xgboost-fiscal-data..html">
+   Visualizing Operations with Dask Dataframes on Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-01-StockMarketPortfolioAnaylsis_snp%2B.html">
+   Stock Market and Portfolio Anaylsis of the S&amp;P 500 various metrics with pandas and quandl
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-25-Linear%20Regression%20and%20Random%20Forest_GBT%20Classification%20with%20Pyspark.html">
+   Regression and Classification with Pyspark ML
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-16-pandas-stats-fiscal.html">
+   Using Pandas and Statsmodels for Regression with Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-21-StockMarketPortfolioAnaylsis2.html">
+   Stock Market and Optimal Portfolio Anaylsis scipy and quandl
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-18-Pyspark-NAs.html">
+   Handling Missing Data with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-29-pyquery_for_ebooks_python.html">
+   Creating E-Books (.epub) in python using ebooklib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-09-dask-sql.html">
+   Using Dask and dask-sql
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-15-Pyspark-Fiscal-Data-Regression.html">
+   Pyspark Regression with Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-02-NLP_Ngram.html">
+   NLP ngrams With Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-22-Linear%20Regression%20and%20Random%20Forest_GBT%20Classification%20with%20Pyspark.html">
+   Regression and Classification with Pyspark ML
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-16-automl-capabilities-of-h2o-library.html">
+   AutoML, Xgboost and H2O
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-21-quant_data_datareader_quandl.html">
+   Using the Quandl API and Pandas Datareader API to call Microsoft, Apple, Zoom, Snowflake stocks and other finance data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-12-dask-xgboost-fiscal-data.html">
+   Visualizing Operations with Dask Dataframes on Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="bibliography.html">
+   Bibliography for Hands On Data Science at Scale with PySpark, Dask and H2O.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="building_book.html">
+   Creating the book:
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-10-Dask-api-eda.html">
+   Dask API for analytics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-31-sql_calls_in_jupyter_Soccer_explore.html">
+   Working with sqlite databases in Jupyter for Visualizing European Soccer Match Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-14-dask-xgboost-HT-OHE.html">
+   Using dask_ml.preprocessing and OneHotEncoder for categorical encoding with Dask
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-05-StockMarketPortfolioAnaylsis_snp_pandas_datareader_sqlite-Copy1.html">
+   Using sqlalchemy and pandas to read and write from and to a local sqlite database for Stock Market and Portfolio Anaylsis Tech Stocks and the S&amp;P 500 in 2020
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="toc.html">
+   Table of Contents for Data Science at Scale
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-09-Dask_Fiscal-Data-Sqlite-db.html">
+   Moving fiscal data from a pandas dataframe to a sqlite local database
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-04-StockMarketPortfolioAnaylsis_snp_pandas_datareader_sqlite-Copy1.html">
+   Stock Market and Portfolio Anaylsis Tech Stocks and the S&amp;P 500 in 2020 with pandas_datareader and writing to at sqlite database
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-22-stock-market-returns.html">
+   Stock Market Analysis of Microsoft, Zoom, and Snowflake
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-25-AnalyzingSizeofArmedForces.html">
+   Analyzing Size of Armed Forces From 1947 - 1963 with statsmodels
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-30-Function-for-zillow-data-quandl-api.html">
+   Using quandl zillow api for Chicago and Evanston Home Sale Prices using ARIMA and EWMAs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-18-ttests-distributions-crosstabs.html">
+   Evaluating Distributions and generating experimental Crosstabs for the evaluation of Experiments
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-11-dask-xgboost-fiscal-data.html">
+   Moving Fiscal Data from a sqlite db to a dask dataframe
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-22-AnalyzingUSUnemployment.html">
+   Analyzing US Unemployment From 1959 - 2009 with statsmodels
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-19-StockMarketPortfolioAnaylsis.html">
+   Stock Market and Portfolio Anaylsis with pandas_datareader and quandl
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-23-AnalyzingUSInflation.html">
+   Analyzing US Inflation From 1959 - 2009 with statsmodels
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-28-databases_sqllite_sqlalchemy_27.html">
+   Creating and accessing SQL databases with python using sqlalchemy and sqlite3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="setup.html">
+   Setting Up Computing Enviroment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-07-Fiscal_data-sqlitedb-Copy1.html">
+   Using sqlalchemy and pandas to read and write from and to a local sqlite database for Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-06-NLP-sqlitedb.html">
+   Using sqlalchemy and pandas to read and write from and to a local sqlite database for NLP
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-17-diab_prediction_with_h2o.html">
+   Predicting Onset/Diagnosis of Chronic Conditions, Diabetes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-17-diab_prediction_with_h2o.html#national-institute-of-diabetes-and-digestive-and-kidney-diseases-https-www-niddk-nih-gov">
+   National Institute of Diabetes and Digestive and Kidney Diseases, https://www.niddk.nih.gov/
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Hands On Data Science at Scale with PySpark, Dask and H2O.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-26-Working_with_sqlite3_dbs_in_jupyter_Soccer_Pred.html">
+   Working with sqlite databases in Jupyter for European Soccer Match Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-16-dask-NLP-gutenberg-books.html">
+   Using Dask with dask.bag and regex to parse The Brothers Karamazov from project gutenberg
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-16-dask-NLP-gutenberg-books.html#removing-stop-words-in-top-word-frequency-counts">
+   Removing stop words in top word frequency counts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-02-databases_sqllite_sqlalchemy_27-Copy1.html">
+   Creating and accessing SQL databases with python using sqlalchemy and sqlite
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="git_setup.html">
+   Setting up Version Control/Git Configuration:
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-15-dask-xgboost-Linear-Regresion-Copy1.html">
+   Linear Regression using Dask Data Frames
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-08-Dask-Day-1.html">
+   Using Dask for Arrays
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-03-NLP_Seaborn_Heatmaps.html">
+   NLP Heatmaps with Seaborn
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-21-RDDs%20and%20Schemas%20and%20Data%20Types%20with%20Pyspark.html">
+   RDDs and Schemas and Data Types with Pyspark
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <h1 id="search-documentation">Search</h1>
+  <div id="fallback" class="admonition warning">
+  <script>$('#fallback').hide();</script>
+  <p>
+    Please activate JavaScript to enable the search
+    functionality.
+  </p>
+  </div>
+  <p>
+    Searching for multiple words only shows matches that contain
+    all words.
+  </p>
+  <form action="" method="get">
+    <input type="text" name="q" aria-labelledby="search-documentation" value="" />
+    <input type="submit" value="search" />
+    <span id="search-progress" style="padding-left: 10px"></span>
+  </form>
+  
+  <div id="search-results">
+  
+  </div>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By David Kearney<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

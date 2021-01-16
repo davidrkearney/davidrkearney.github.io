@@ -1,0 +1,2692 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Working with sqlite databases in Jupyter for Visualizing European Soccer Match Data &#8212; Hands On Data Science at Scale with PySpark, Dask and H2O.</title>
+    
+  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Using dask_ml.preprocessing and OneHotEncoder for categorical encoding with Dask" href="2020-10-14-dask-xgboost-HT-OHE.html" />
+    <link rel="prev" title="Dask API for analytics" href="2020-11-10-Dask-api-eda.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Hands On Data Science at Scale with PySpark, Dask and H2O.</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-25-ARIMA-ADF-FORECASTING.html">
+   Stock Market Analysis of the S&amp;P 500 Index using ARIMA and Seasonal ARIMA for forecasting
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-17-Pyspark-Group-By.html">
+   Group By and Aggregation with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-22-Window%20functions%20and%20Pivot%20Tables%20with%20Pyspark.html">
+   Window functions and Pivot Tables with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-29-Clustering%20with%20Pyspark.html">
+   Clustering with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-27-sql_calls_in_jupyter_Soccer_Pred.html">
+   Working with sqlite databases in Jupyter for Visualizing European Soccer Match Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-19-ttests-distributions-crosstabs-functions.html">
+   Evaluating Distributions and generating Experimental Crosstabs for the Evaluation of Experiments as well as Experimental Comparisons with T-Tests, Purpose Assumptions, Corrections and Implementations in Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-24-AnalyzingUSRealInterestRate.html">
+   Analyzing US Real Interest Rate From 1959 - 2009 with statsmodels
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-30-NLP%20with%20Pyspark.html">
+   NLP with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-19-Pyspark-Filtering.html">
+   Dataframe Filitering and Operations with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-28-PCA-with-sklearn.html">
+   Principal component analysis with sklearn
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-20-Dask-Diab.html">
+   Dask for Predicting Onset/Diagnosis of Chronic Conditions, Diabetes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-17-dask-NLP-gutenberg-books.html">
+   Using Dask with dask.bag and regex to parse Notes from the Underground from project gutenberg
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-17-dask-NLP-gutenberg-books.html#removing-stop-words-in-top-word-frequency-counts">
+   Removing stop words in top word frequency counts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-30-StockMarketPortfolioAnaylsis_snp.html">
+   Stock Market and Portfolio Anaylsis of the S&amp;P 500 with pandas and quandl
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-10-Dask_Fiscal-db-to-dask-dataframe.html">
+   Working with dask data frames. Reading Fiscal Data from a sqlite db to a dask dataframe. Computing, visualizing and groupby with dask dataframes. Using dask.distributed locally.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-20-Pyspark-Dataframes-Data-Types.html">
+   Dataframes, Formatting, Casting Data Type and Correlation with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-13-dask-xgboost-fiscal-data.html">
+   Moving Dask XGboost with Fiscal Data, saving and loading Dask XGboost models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-12-dask-xgboost-fiscal-data..html">
+   Visualizing Operations with Dask Dataframes on Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-01-StockMarketPortfolioAnaylsis_snp%2B.html">
+   Stock Market and Portfolio Anaylsis of the S&amp;P 500 various metrics with pandas and quandl
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-25-Linear%20Regression%20and%20Random%20Forest_GBT%20Classification%20with%20Pyspark.html">
+   Regression and Classification with Pyspark ML
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-16-pandas-stats-fiscal.html">
+   Using Pandas and Statsmodels for Regression with Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-21-StockMarketPortfolioAnaylsis2.html">
+   Stock Market and Optimal Portfolio Anaylsis scipy and quandl
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-18-Pyspark-NAs.html">
+   Handling Missing Data with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-29-pyquery_for_ebooks_python.html">
+   Creating E-Books (.epub) in python using ebooklib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-09-dask-sql.html">
+   Using Dask and dask-sql
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-15-Pyspark-Fiscal-Data-Regression.html">
+   Pyspark Regression with Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-02-NLP_Ngram.html">
+   NLP ngrams With Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-22-Linear%20Regression%20and%20Random%20Forest_GBT%20Classification%20with%20Pyspark.html">
+   Regression and Classification with Pyspark ML
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-16-automl-capabilities-of-h2o-library.html">
+   AutoML, Xgboost and H2O
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-21-quant_data_datareader_quandl.html">
+   Using the Quandl API and Pandas Datareader API to call Microsoft, Apple, Zoom, Snowflake stocks and other finance data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-12-dask-xgboost-fiscal-data.html">
+   Visualizing Operations with Dask Dataframes on Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="bibliography.html">
+   Bibliography for Hands On Data Science at Scale with PySpark, Dask and H2O.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="building_book.html">
+   Creating the book:
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-10-Dask-api-eda.html">
+   Dask API for analytics
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Working with sqlite databases in Jupyter for Visualizing European Soccer Match Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-14-dask-xgboost-HT-OHE.html">
+   Using dask_ml.preprocessing and OneHotEncoder for categorical encoding with Dask
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-05-StockMarketPortfolioAnaylsis_snp_pandas_datareader_sqlite-Copy1.html">
+   Using sqlalchemy and pandas to read and write from and to a local sqlite database for Stock Market and Portfolio Anaylsis Tech Stocks and the S&amp;P 500 in 2020
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="toc.html">
+   Table of Contents for Data Science at Scale
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-09-Dask_Fiscal-Data-Sqlite-db.html">
+   Moving fiscal data from a pandas dataframe to a sqlite local database
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-04-StockMarketPortfolioAnaylsis_snp_pandas_datareader_sqlite-Copy1.html">
+   Stock Market and Portfolio Anaylsis Tech Stocks and the S&amp;P 500 in 2020 with pandas_datareader and writing to at sqlite database
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-22-stock-market-returns.html">
+   Stock Market Analysis of Microsoft, Zoom, and Snowflake
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-25-AnalyzingSizeofArmedForces.html">
+   Analyzing Size of Armed Forces From 1947 - 1963 with statsmodels
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-30-Function-for-zillow-data-quandl-api.html">
+   Using quandl zillow api for Chicago and Evanston Home Sale Prices using ARIMA and EWMAs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-18-ttests-distributions-crosstabs.html">
+   Evaluating Distributions and generating experimental Crosstabs for the evaluation of Experiments
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-11-dask-xgboost-fiscal-data.html">
+   Moving Fiscal Data from a sqlite db to a dask dataframe
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-22-AnalyzingUSUnemployment.html">
+   Analyzing US Unemployment From 1959 - 2009 with statsmodels
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-19-StockMarketPortfolioAnaylsis.html">
+   Stock Market and Portfolio Anaylsis with pandas_datareader and quandl
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-23-AnalyzingUSInflation.html">
+   Analyzing US Inflation From 1959 - 2009 with statsmodels
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-28-databases_sqllite_sqlalchemy_27.html">
+   Creating and accessing SQL databases with python using sqlalchemy and sqlite3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="setup.html">
+   Setting Up Computing Enviroment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-07-Fiscal_data-sqlitedb-Copy1.html">
+   Using sqlalchemy and pandas to read and write from and to a local sqlite database for Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-06-NLP-sqlitedb.html">
+   Using sqlalchemy and pandas to read and write from and to a local sqlite database for NLP
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-17-diab_prediction_with_h2o.html">
+   Predicting Onset/Diagnosis of Chronic Conditions, Diabetes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-17-diab_prediction_with_h2o.html#national-institute-of-diabetes-and-digestive-and-kidney-diseases-https-www-niddk-nih-gov">
+   National Institute of Diabetes and Digestive and Kidney Diseases, https://www.niddk.nih.gov/
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Hands On Data Science at Scale with PySpark, Dask and H2O.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-26-Working_with_sqlite3_dbs_in_jupyter_Soccer_Pred.html">
+   Working with sqlite databases in Jupyter for European Soccer Match Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-16-dask-NLP-gutenberg-books.html">
+   Using Dask with dask.bag and regex to parse The Brothers Karamazov from project gutenberg
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-16-dask-NLP-gutenberg-books.html#removing-stop-words-in-top-word-frequency-counts">
+   Removing stop words in top word frequency counts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-02-databases_sqllite_sqlalchemy_27-Copy1.html">
+   Creating and accessing SQL databases with python using sqlalchemy and sqlite
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="git_setup.html">
+   Setting up Version Control/Git Configuration:
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-15-dask-xgboost-Linear-Regresion-Copy1.html">
+   Linear Regression using Dask Data Frames
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-08-Dask-Day-1.html">
+   Using Dask for Arrays
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-03-NLP_Seaborn_Heatmaps.html">
+   NLP Heatmaps with Seaborn
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-21-RDDs%20and%20Schemas%20and%20Data%20Types%20with%20Pyspark.html">
+   RDDs and Schemas and Data Types with Pyspark
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/2020-10-31-sql_calls_in_jupyter_Soccer_explore.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/2020-10-31-sql_calls_in_jupyter_Soccer_explore.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#build-home-team-win-label-for-classification">
+   Build home team win label for classification
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="working-with-sqlite-databases-in-jupyter-for-visualizing-european-soccer-match-data">
+<h1>Working with sqlite databases in Jupyter for Visualizing European Soccer Match Data<a class="headerlink" href="#working-with-sqlite-databases-in-jupyter-for-visualizing-european-soccer-match-data" title="Permalink to this headline">¶</a></h1>
+<p>This post includes code and notes from <a class="reference external" href="https://www.kaggle.com/dimarudov/data-analysis-using-sql">data-analysis-using-sql</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sqlalchemy</span> <span class="k">as</span> <span class="nn">db</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> sql
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">engine</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">create_engine</span><span class="p">(</span><span class="s1">&#39;sqlite:///database.sqlite&#39;</span><span class="p">)</span>
+<span class="n">connection</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<span class="n">metadata</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">MetaData</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">connection</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;sqlalchemy.engine.base.Connection at 0x7f70c27cc0b8&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tables</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;SELECT *</span>
+<span class="s2">                        FROM sqlite_master</span>
+<span class="s2">                        WHERE type=&#39;table&#39;;&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">connection</span><span class="p">)</span>
+<span class="n">tables</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>type</th>
+      <th>name</th>
+      <th>tbl_name</th>
+      <th>rootpage</th>
+      <th>sql</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>table</td>
+      <td>sqlite_sequence</td>
+      <td>sqlite_sequence</td>
+      <td>4</td>
+      <td>CREATE TABLE sqlite_sequence(name,seq)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>table</td>
+      <td>Player_Attributes</td>
+      <td>Player_Attributes</td>
+      <td>11</td>
+      <td>CREATE TABLE "Player_Attributes" (\n\t`id`\tIN...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>table</td>
+      <td>Player</td>
+      <td>Player</td>
+      <td>14</td>
+      <td>CREATE TABLE `Player` (\n\t`id`\tINTEGER PRIMA...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>table</td>
+      <td>Match</td>
+      <td>Match</td>
+      <td>18</td>
+      <td>CREATE TABLE `Match` (\n\t`id`\tINTEGER PRIMAR...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>table</td>
+      <td>League</td>
+      <td>League</td>
+      <td>24</td>
+      <td>CREATE TABLE `League` (\n\t`id`\tINTEGER PRIMA...</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>table</td>
+      <td>Country</td>
+      <td>Country</td>
+      <td>26</td>
+      <td>CREATE TABLE `Country` (\n\t`id`\tINTEGER PRIM...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>table</td>
+      <td>Team</td>
+      <td>Team</td>
+      <td>29</td>
+      <td>CREATE TABLE "Team" (\n\t`id`\tINTEGER PRIMARY...</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>table</td>
+      <td>Team_Attributes</td>
+      <td>Team_Attributes</td>
+      <td>2</td>
+      <td>CREATE TABLE `Team_Attributes` (\n\t`id`\tINTE...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># %%sql</span>
+<span class="c1"># SELECT *</span>
+<span class="c1"># FROM sqlite_master</span>
+<span class="c1"># WHERE type=&#39;table&#39;</span>
+<span class="c1"># ;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">engine</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM Country LIMIT 10&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(1, &#39;Belgium&#39;),
+ (1729, &#39;England&#39;),
+ (4769, &#39;France&#39;),
+ (7809, &#39;Germany&#39;),
+ (10257, &#39;Italy&#39;),
+ (13274, &#39;Netherlands&#39;),
+ (15722, &#39;Poland&#39;),
+ (17642, &#39;Portugal&#39;),
+ (19694, &#39;Scotland&#39;),
+ (21518, &#39;Spain&#39;)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT * 
+FROM Match 
+LIMIT 3;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * sqlite:///database.sqlite
+Done.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <tr>
+        <th>id</th>
+        <th>country_id</th>
+        <th>league_id</th>
+        <th>season</th>
+        <th>stage</th>
+        <th>date</th>
+        <th>match_api_id</th>
+        <th>home_team_api_id</th>
+        <th>away_team_api_id</th>
+        <th>home_team_goal</th>
+        <th>away_team_goal</th>
+        <th>home_player_X1</th>
+        <th>home_player_X2</th>
+        <th>home_player_X3</th>
+        <th>home_player_X4</th>
+        <th>home_player_X5</th>
+        <th>home_player_X6</th>
+        <th>home_player_X7</th>
+        <th>home_player_X8</th>
+        <th>home_player_X9</th>
+        <th>home_player_X10</th>
+        <th>home_player_X11</th>
+        <th>away_player_X1</th>
+        <th>away_player_X2</th>
+        <th>away_player_X3</th>
+        <th>away_player_X4</th>
+        <th>away_player_X5</th>
+        <th>away_player_X6</th>
+        <th>away_player_X7</th>
+        <th>away_player_X8</th>
+        <th>away_player_X9</th>
+        <th>away_player_X10</th>
+        <th>away_player_X11</th>
+        <th>home_player_Y1</th>
+        <th>home_player_Y2</th>
+        <th>home_player_Y3</th>
+        <th>home_player_Y4</th>
+        <th>home_player_Y5</th>
+        <th>home_player_Y6</th>
+        <th>home_player_Y7</th>
+        <th>home_player_Y8</th>
+        <th>home_player_Y9</th>
+        <th>home_player_Y10</th>
+        <th>home_player_Y11</th>
+        <th>away_player_Y1</th>
+        <th>away_player_Y2</th>
+        <th>away_player_Y3</th>
+        <th>away_player_Y4</th>
+        <th>away_player_Y5</th>
+        <th>away_player_Y6</th>
+        <th>away_player_Y7</th>
+        <th>away_player_Y8</th>
+        <th>away_player_Y9</th>
+        <th>away_player_Y10</th>
+        <th>away_player_Y11</th>
+        <th>home_player_1</th>
+        <th>home_player_2</th>
+        <th>home_player_3</th>
+        <th>home_player_4</th>
+        <th>home_player_5</th>
+        <th>home_player_6</th>
+        <th>home_player_7</th>
+        <th>home_player_8</th>
+        <th>home_player_9</th>
+        <th>home_player_10</th>
+        <th>home_player_11</th>
+        <th>away_player_1</th>
+        <th>away_player_2</th>
+        <th>away_player_3</th>
+        <th>away_player_4</th>
+        <th>away_player_5</th>
+        <th>away_player_6</th>
+        <th>away_player_7</th>
+        <th>away_player_8</th>
+        <th>away_player_9</th>
+        <th>away_player_10</th>
+        <th>away_player_11</th>
+        <th>goal</th>
+        <th>shoton</th>
+        <th>shotoff</th>
+        <th>foulcommit</th>
+        <th>card</th>
+        <th>cross</th>
+        <th>corner</th>
+        <th>possession</th>
+        <th>B365H</th>
+        <th>B365D</th>
+        <th>B365A</th>
+        <th>BWH</th>
+        <th>BWD</th>
+        <th>BWA</th>
+        <th>IWH</th>
+        <th>IWD</th>
+        <th>IWA</th>
+        <th>LBH</th>
+        <th>LBD</th>
+        <th>LBA</th>
+        <th>PSH</th>
+        <th>PSD</th>
+        <th>PSA</th>
+        <th>WHH</th>
+        <th>WHD</th>
+        <th>WHA</th>
+        <th>SJH</th>
+        <th>SJD</th>
+        <th>SJA</th>
+        <th>VCH</th>
+        <th>VCD</th>
+        <th>VCA</th>
+        <th>GBH</th>
+        <th>GBD</th>
+        <th>GBA</th>
+        <th>BSH</th>
+        <th>BSD</th>
+        <th>BSA</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>2008/2009</td>
+        <td>1</td>
+        <td>2008-08-17 00:00:00</td>
+        <td>492473</td>
+        <td>9987</td>
+        <td>9993</td>
+        <td>1</td>
+        <td>1</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>1.73</td>
+        <td>3.4</td>
+        <td>5</td>
+        <td>1.75</td>
+        <td>3.35</td>
+        <td>4.2</td>
+        <td>1.85</td>
+        <td>3.2</td>
+        <td>3.5</td>
+        <td>1.8</td>
+        <td>3.3</td>
+        <td>3.75</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>1.7</td>
+        <td>3.3</td>
+        <td>4.33</td>
+        <td>1.9</td>
+        <td>3.3</td>
+        <td>4</td>
+        <td>1.65</td>
+        <td>3.4</td>
+        <td>4.5</td>
+        <td>1.78</td>
+        <td>3.25</td>
+        <td>4</td>
+        <td>1.73</td>
+        <td>3.4</td>
+        <td>4.2</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>1</td>
+        <td>1</td>
+        <td>2008/2009</td>
+        <td>1</td>
+        <td>2008-08-16 00:00:00</td>
+        <td>492474</td>
+        <td>10000</td>
+        <td>9994</td>
+        <td>0</td>
+        <td>0</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>1.95</td>
+        <td>3.2</td>
+        <td>3.6</td>
+        <td>1.8</td>
+        <td>3.3</td>
+        <td>3.95</td>
+        <td>1.9</td>
+        <td>3.2</td>
+        <td>3.5</td>
+        <td>1.9</td>
+        <td>3.2</td>
+        <td>3.5</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>1.83</td>
+        <td>3.3</td>
+        <td>3.6</td>
+        <td>1.95</td>
+        <td>3.3</td>
+        <td>3.8</td>
+        <td>2</td>
+        <td>3.25</td>
+        <td>3.25</td>
+        <td>1.85</td>
+        <td>3.25</td>
+        <td>3.75</td>
+        <td>1.91</td>
+        <td>3.25</td>
+        <td>3.6</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>1</td>
+        <td>1</td>
+        <td>2008/2009</td>
+        <td>1</td>
+        <td>2008-08-16 00:00:00</td>
+        <td>492475</td>
+        <td>9984</td>
+        <td>8635</td>
+        <td>0</td>
+        <td>3</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>2.38</td>
+        <td>3.3</td>
+        <td>2.75</td>
+        <td>2.4</td>
+        <td>3.3</td>
+        <td>2.55</td>
+        <td>2.6</td>
+        <td>3.1</td>
+        <td>2.3</td>
+        <td>2.5</td>
+        <td>3.2</td>
+        <td>2.5</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>2.5</td>
+        <td>3.25</td>
+        <td>2.4</td>
+        <td>2.63</td>
+        <td>3.3</td>
+        <td>2.5</td>
+        <td>2.35</td>
+        <td>3.25</td>
+        <td>2.65</td>
+        <td>2.5</td>
+        <td>3.2</td>
+        <td>2.5</td>
+        <td>2.3</td>
+        <td>3.2</td>
+        <td>2.75</td>
+    </tr>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># %%sql</span>
+<span class="c1"># DROP TABLE IF EXISTS Team_table</span>
+<span class="c1"># CREATE TABLE Team_table AS</span>
+<span class="c1"># SELECT * FROM Team_Attributes LIMIT 10;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * sqlite:///database.sqlite
+Done.
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sql_query</span> <span class="o">=</span> <span class="o">%</span><span class="k">sql</span> SELECT * FROM Team_table LIMIT 10
+<span class="n">df</span> <span class="o">=</span> <span class="n">sql_query</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * sqlite:///database.sqlite
+Done.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">countries</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;SELECT *</span>
+<span class="s2">                        FROM Country;&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">connection</span><span class="p">)</span>
+<span class="n">countries</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">highlight_max</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style  type="text/css" >
+#T_f3f43470_1859_11eb_91ac_738ca5656eb7row10_col0{
+            background-color:  yellow;
+        }</style><table id="T_f3f43470_1859_11eb_91ac_738ca5656eb7" ><thead>    <tr>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >id</th>        <th class="col_heading level0 col1" >name</th>    </tr></thead><tbody>
+                <tr>
+                        <th id="T_f3f43470_1859_11eb_91ac_738ca5656eb7level0_row0" class="row_heading level0 row0" >0</th>
+                        <td id="T_f3f43470_1859_11eb_91ac_738ca5656eb7row0_col0" class="data row0 col0" >1</td>
+                        <td id="T_f3f43470_1859_11eb_91ac_738ca5656eb7row0_col1" class="data row0 col1" >Belgium</td>
+            </tr>
+            <tr>
+                        <th id="T_f3f43470_1859_11eb_91ac_738ca5656eb7level0_row1" class="row_heading level0 row1" >1</th>
+                        <td id="T_f3f43470_1859_11eb_91ac_738ca5656eb7row1_col0" class="data row1 col0" >1729</td>
+                        <td id="T_f3f43470_1859_11eb_91ac_738ca5656eb7row1_col1" class="data row1 col1" >England</td>
+            </tr>
+            <tr>
+                        <th id="T_f3f43470_1859_11eb_91ac_738ca5656eb7level0_row2" class="row_heading level0 row2" >2</th>
+                        <td id="T_f3f43470_1859_11eb_91ac_738ca5656eb7row2_col0" class="data row2 col0" >4769</td>
+                        <td id="T_f3f43470_1859_11eb_91ac_738ca5656eb7row2_col1" class="data row2 col1" >France</td>
+            </tr>
+            <tr>
+                        <th id="T_f3f43470_1859_11eb_91ac_738ca5656eb7level0_row3" class="row_heading level0 row3" >3</th>
+                        <td id="T_f3f43470_1859_11eb_91ac_738ca5656eb7row3_col0" class="data row3 col0" >7809</td>
+                        <td id="T_f3f43470_1859_11eb_91ac_738ca5656eb7row3_col1" class="data row3 col1" >Germany</td>
+            </tr>
+            <tr>
+                        <th id="T_f3f43470_1859_11eb_91ac_738ca5656eb7level0_row4" class="row_heading level0 row4" >4</th>
+                        <td id="T_f3f43470_1859_11eb_91ac_738ca5656eb7row4_col0" class="data row4 col0" >10257</td>
+                        <td id="T_f3f43470_1859_11eb_91ac_738ca5656eb7row4_col1" class="data row4 col1" >Italy</td>
+            </tr>
+            <tr>
+                        <th id="T_f3f43470_1859_11eb_91ac_738ca5656eb7level0_row5" class="row_heading level0 row5" >5</th>
+                        <td id="T_f3f43470_1859_11eb_91ac_738ca5656eb7row5_col0" class="data row5 col0" >13274</td>
+                        <td id="T_f3f43470_1859_11eb_91ac_738ca5656eb7row5_col1" class="data row5 col1" >Netherlands</td>
+            </tr>
+            <tr>
+                        <th id="T_f3f43470_1859_11eb_91ac_738ca5656eb7level0_row6" class="row_heading level0 row6" >6</th>
+                        <td id="T_f3f43470_1859_11eb_91ac_738ca5656eb7row6_col0" class="data row6 col0" >15722</td>
+                        <td id="T_f3f43470_1859_11eb_91ac_738ca5656eb7row6_col1" class="data row6 col1" >Poland</td>
+            </tr>
+            <tr>
+                        <th id="T_f3f43470_1859_11eb_91ac_738ca5656eb7level0_row7" class="row_heading level0 row7" >7</th>
+                        <td id="T_f3f43470_1859_11eb_91ac_738ca5656eb7row7_col0" class="data row7 col0" >17642</td>
+                        <td id="T_f3f43470_1859_11eb_91ac_738ca5656eb7row7_col1" class="data row7 col1" >Portugal</td>
+            </tr>
+            <tr>
+                        <th id="T_f3f43470_1859_11eb_91ac_738ca5656eb7level0_row8" class="row_heading level0 row8" >8</th>
+                        <td id="T_f3f43470_1859_11eb_91ac_738ca5656eb7row8_col0" class="data row8 col0" >19694</td>
+                        <td id="T_f3f43470_1859_11eb_91ac_738ca5656eb7row8_col1" class="data row8 col1" >Scotland</td>
+            </tr>
+            <tr>
+                        <th id="T_f3f43470_1859_11eb_91ac_738ca5656eb7level0_row9" class="row_heading level0 row9" >9</th>
+                        <td id="T_f3f43470_1859_11eb_91ac_738ca5656eb7row9_col0" class="data row9 col0" >21518</td>
+                        <td id="T_f3f43470_1859_11eb_91ac_738ca5656eb7row9_col1" class="data row9 col1" >Spain</td>
+            </tr>
+            <tr>
+                        <th id="T_f3f43470_1859_11eb_91ac_738ca5656eb7level0_row10" class="row_heading level0 row10" >10</th>
+                        <td id="T_f3f43470_1859_11eb_91ac_738ca5656eb7row10_col0" class="data row10 col0" >24558</td>
+                        <td id="T_f3f43470_1859_11eb_91ac_738ca5656eb7row10_col1" class="data row10 col1" >Switzerland</td>
+            </tr>
+    </tbody></table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># leagues = pd.read_sql(&quot;&quot;&quot;SELECT *</span>
+<span class="c1">#                         FROM League</span>
+<span class="c1">#                         JOIN Country ON Country.id = League.country_id;&quot;&quot;&quot;, connection)</span>
+<span class="c1"># leagues</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+DROP TABLE IF EXISTS Match_Table;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * sqlite:///database.sqlite
+Done.
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT * FROM Match LIMIT 1;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * sqlite:///database.sqlite
+Done.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <tr>
+        <th>id</th>
+        <th>country_id</th>
+        <th>league_id</th>
+        <th>season</th>
+        <th>stage</th>
+        <th>date</th>
+        <th>match_api_id</th>
+        <th>home_team_api_id</th>
+        <th>away_team_api_id</th>
+        <th>home_team_goal</th>
+        <th>away_team_goal</th>
+        <th>home_player_X1</th>
+        <th>home_player_X2</th>
+        <th>home_player_X3</th>
+        <th>home_player_X4</th>
+        <th>home_player_X5</th>
+        <th>home_player_X6</th>
+        <th>home_player_X7</th>
+        <th>home_player_X8</th>
+        <th>home_player_X9</th>
+        <th>home_player_X10</th>
+        <th>home_player_X11</th>
+        <th>away_player_X1</th>
+        <th>away_player_X2</th>
+        <th>away_player_X3</th>
+        <th>away_player_X4</th>
+        <th>away_player_X5</th>
+        <th>away_player_X6</th>
+        <th>away_player_X7</th>
+        <th>away_player_X8</th>
+        <th>away_player_X9</th>
+        <th>away_player_X10</th>
+        <th>away_player_X11</th>
+        <th>home_player_Y1</th>
+        <th>home_player_Y2</th>
+        <th>home_player_Y3</th>
+        <th>home_player_Y4</th>
+        <th>home_player_Y5</th>
+        <th>home_player_Y6</th>
+        <th>home_player_Y7</th>
+        <th>home_player_Y8</th>
+        <th>home_player_Y9</th>
+        <th>home_player_Y10</th>
+        <th>home_player_Y11</th>
+        <th>away_player_Y1</th>
+        <th>away_player_Y2</th>
+        <th>away_player_Y3</th>
+        <th>away_player_Y4</th>
+        <th>away_player_Y5</th>
+        <th>away_player_Y6</th>
+        <th>away_player_Y7</th>
+        <th>away_player_Y8</th>
+        <th>away_player_Y9</th>
+        <th>away_player_Y10</th>
+        <th>away_player_Y11</th>
+        <th>home_player_1</th>
+        <th>home_player_2</th>
+        <th>home_player_3</th>
+        <th>home_player_4</th>
+        <th>home_player_5</th>
+        <th>home_player_6</th>
+        <th>home_player_7</th>
+        <th>home_player_8</th>
+        <th>home_player_9</th>
+        <th>home_player_10</th>
+        <th>home_player_11</th>
+        <th>away_player_1</th>
+        <th>away_player_2</th>
+        <th>away_player_3</th>
+        <th>away_player_4</th>
+        <th>away_player_5</th>
+        <th>away_player_6</th>
+        <th>away_player_7</th>
+        <th>away_player_8</th>
+        <th>away_player_9</th>
+        <th>away_player_10</th>
+        <th>away_player_11</th>
+        <th>goal</th>
+        <th>shoton</th>
+        <th>shotoff</th>
+        <th>foulcommit</th>
+        <th>card</th>
+        <th>cross</th>
+        <th>corner</th>
+        <th>possession</th>
+        <th>B365H</th>
+        <th>B365D</th>
+        <th>B365A</th>
+        <th>BWH</th>
+        <th>BWD</th>
+        <th>BWA</th>
+        <th>IWH</th>
+        <th>IWD</th>
+        <th>IWA</th>
+        <th>LBH</th>
+        <th>LBD</th>
+        <th>LBA</th>
+        <th>PSH</th>
+        <th>PSD</th>
+        <th>PSA</th>
+        <th>WHH</th>
+        <th>WHD</th>
+        <th>WHA</th>
+        <th>SJH</th>
+        <th>SJD</th>
+        <th>SJA</th>
+        <th>VCH</th>
+        <th>VCD</th>
+        <th>VCA</th>
+        <th>GBH</th>
+        <th>GBD</th>
+        <th>GBA</th>
+        <th>BSH</th>
+        <th>BSD</th>
+        <th>BSA</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>2008/2009</td>
+        <td>1</td>
+        <td>2008-08-17 00:00:00</td>
+        <td>492473</td>
+        <td>9987</td>
+        <td>9993</td>
+        <td>1</td>
+        <td>1</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>1.73</td>
+        <td>3.4</td>
+        <td>5</td>
+        <td>1.75</td>
+        <td>3.35</td>
+        <td>4.2</td>
+        <td>1.85</td>
+        <td>3.2</td>
+        <td>3.5</td>
+        <td>1.8</td>
+        <td>3.3</td>
+        <td>3.75</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>1.7</td>
+        <td>3.3</td>
+        <td>4.33</td>
+        <td>1.9</td>
+        <td>3.3</td>
+        <td>4</td>
+        <td>1.65</td>
+        <td>3.4</td>
+        <td>4.5</td>
+        <td>1.78</td>
+        <td>3.25</td>
+        <td>4</td>
+        <td>1.73</td>
+        <td>3.4</td>
+        <td>4.2</td>
+    </tr>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT * FROM Country LIMIT 1;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * sqlite:///database.sqlite
+Done.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>Belgium</td>
+    </tr>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT * FROM League LIMIT 1;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * sqlite:///database.sqlite
+Done.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <tr>
+        <th>id</th>
+        <th>country_id</th>
+        <th>name</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>Belgium Jupiler League</td>
+    </tr>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+DROP TABLE IF EXISTS Match_df;
+CREATE TABLE Match_df AS
+
+
+SELECT Match.id, 
+                                        Country.name AS country_name, 
+                                        League.name AS league_name, 
+                                        season, 
+                                        stage, 
+                                        date,
+                                        HT.team_long_name AS  home_team,
+                                        AT.team_long_name AS away_team,
+                                        home_team_goal, 
+                                        away_team_goal                                        
+                                FROM Match
+                                JOIN Country on Country.id = Match.country_id
+                                JOIN League on League.id = Match.league_id
+                                LEFT JOIN Team AS HT on HT.team_api_id = Match.home_team_api_id
+                                LEFT JOIN Team AS AT on AT.team_api_id = Match.away_team_api_id
+                                ORDER by date
+;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * sqlite:///database.sqlite
+Done.
+Done.
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT COUNT(*) FROM Match_df;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * sqlite:///database.sqlite
+Done.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <tr>
+        <th>COUNT(*)</th>
+    </tr>
+    <tr>
+        <td>25979</td>
+    </tr>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sql_query</span> <span class="o">=</span> <span class="o">%</span><span class="k">sql</span> SELECT * FROM Match_df LIMIT 10
+<span class="n">df</span> <span class="o">=</span> <span class="n">sql_query</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * sqlite:///database.sqlite
+Done.
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>country_name</th>
+      <th>league_name</th>
+      <th>season</th>
+      <th>stage</th>
+      <th>date</th>
+      <th>home_team</th>
+      <th>away_team</th>
+      <th>home_team_goal</th>
+      <th>away_team_goal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>24559</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>1</td>
+      <td>2008-07-18 00:00:00</td>
+      <td>BSC Young Boys</td>
+      <td>FC Basel</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>24560</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>1</td>
+      <td>2008-07-19 00:00:00</td>
+      <td>FC Aarau</td>
+      <td>FC Sion</td>
+      <td>3</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>24561</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>1</td>
+      <td>2008-07-20 00:00:00</td>
+      <td>FC Luzern</td>
+      <td>FC Vaduz</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>24562</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>1</td>
+      <td>2008-07-20 00:00:00</td>
+      <td>Neuchâtel Xamax</td>
+      <td>FC Zürich</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>24613</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>2</td>
+      <td>2008-07-23 00:00:00</td>
+      <td>FC Basel</td>
+      <td>Grasshopper Club Zürich</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>24614</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>2</td>
+      <td>2008-07-23 00:00:00</td>
+      <td>AC Bellinzona</td>
+      <td>Neuchâtel Xamax</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>24615</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>2</td>
+      <td>2008-07-23 00:00:00</td>
+      <td>FC Zürich</td>
+      <td>FC Luzern</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>24616</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>2</td>
+      <td>2008-07-24 00:00:00</td>
+      <td>FC Sion</td>
+      <td>BSC Young Boys</td>
+      <td>2</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>24617</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>2</td>
+      <td>2008-07-24 00:00:00</td>
+      <td>FC Vaduz</td>
+      <td>FC Aarau</td>
+      <td>0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>24668</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>3</td>
+      <td>2008-07-26 00:00:00</td>
+      <td>FC Basel</td>
+      <td>AC Bellinzona</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="section" id="build-home-team-win-label-for-classification">
+<h2>Build home team win label for classification<a class="headerlink" href="#build-home-team-win-label-for-classification" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+DROP TABLE IF EXISTS Match_Wins;
+CREATE TABLE Match_Wins AS
+
+
+SELECT *
+, CASE WHEN home_team_goal &gt; away_team_goal
+THEN 1
+ELSE 0
+END AS home_team_win
+FROM Match_df
+;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * sqlite:///database.sqlite
+Done.
+Done.
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sql_query</span> <span class="o">=</span> <span class="o">%</span><span class="k">sql</span> SELECT * FROM Match_Wins
+<span class="n">df</span> <span class="o">=</span> <span class="n">sql_query</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * sqlite:///database.sqlite
+Done.
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>country_name</th>
+      <th>league_name</th>
+      <th>season</th>
+      <th>stage</th>
+      <th>date</th>
+      <th>home_team</th>
+      <th>away_team</th>
+      <th>home_team_goal</th>
+      <th>away_team_goal</th>
+      <th>home_team_win</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>24559</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>1</td>
+      <td>2008-07-18 00:00:00</td>
+      <td>BSC Young Boys</td>
+      <td>FC Basel</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>24560</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>1</td>
+      <td>2008-07-19 00:00:00</td>
+      <td>FC Aarau</td>
+      <td>FC Sion</td>
+      <td>3</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>24561</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>1</td>
+      <td>2008-07-20 00:00:00</td>
+      <td>FC Luzern</td>
+      <td>FC Vaduz</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>24562</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>1</td>
+      <td>2008-07-20 00:00:00</td>
+      <td>Neuchâtel Xamax</td>
+      <td>FC Zürich</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>24613</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>2</td>
+      <td>2008-07-23 00:00:00</td>
+      <td>FC Basel</td>
+      <td>Grasshopper Club Zürich</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>25974</th>
+      <td>25945</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2015/2016</td>
+      <td>36</td>
+      <td>2016-05-25 00:00:00</td>
+      <td>FC Basel</td>
+      <td>Grasshopper Club Zürich</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>25975</th>
+      <td>25946</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2015/2016</td>
+      <td>36</td>
+      <td>2016-05-25 00:00:00</td>
+      <td>Lugano</td>
+      <td>FC St. Gallen</td>
+      <td>3</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>25976</th>
+      <td>25947</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2015/2016</td>
+      <td>36</td>
+      <td>2016-05-25 00:00:00</td>
+      <td>FC Luzern</td>
+      <td>FC Sion</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>25977</th>
+      <td>25948</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2015/2016</td>
+      <td>36</td>
+      <td>2016-05-25 00:00:00</td>
+      <td>FC Thun</td>
+      <td>BSC Young Boys</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>25978</th>
+      <td>25949</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2015/2016</td>
+      <td>36</td>
+      <td>2016-05-25 00:00:00</td>
+      <td>FC Zürich</td>
+      <td>FC Vaduz</td>
+      <td>3</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>25979 rows × 11 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dask</span> <span class="kn">import</span> <span class="n">dataframe</span> <span class="k">as</span> <span class="n">dd</span> 
+<span class="n">ddf</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">npartitions</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ddf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>country_name</th>
+      <th>league_name</th>
+      <th>season</th>
+      <th>stage</th>
+      <th>date</th>
+      <th>home_team</th>
+      <th>away_team</th>
+      <th>home_team_goal</th>
+      <th>away_team_goal</th>
+      <th>home_team_win</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>24559</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>1</td>
+      <td>2008-07-18 00:00:00</td>
+      <td>BSC Young Boys</td>
+      <td>FC Basel</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>24560</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>1</td>
+      <td>2008-07-19 00:00:00</td>
+      <td>FC Aarau</td>
+      <td>FC Sion</td>
+      <td>3</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>24561</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>1</td>
+      <td>2008-07-20 00:00:00</td>
+      <td>FC Luzern</td>
+      <td>FC Vaduz</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>24562</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>1</td>
+      <td>2008-07-20 00:00:00</td>
+      <td>Neuchâtel Xamax</td>
+      <td>FC Zürich</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>24613</td>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>2</td>
+      <td>2008-07-23 00:00:00</td>
+      <td>FC Basel</td>
+      <td>Grasshopper Club Zürich</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;home_team_goal&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;home_team_goal&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;away_team_goal&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;away_team_goal&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;stage&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;stage&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">feat_list</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;home_team_goal&quot;</span>
+    <span class="p">,</span><span class="s2">&quot;away_team_goal&quot;</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">target</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;home_team_win&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span> <span class="o">=</span> <span class="n">ddf</span><span class="p">[</span><span class="n">feat_list</span><span class="p">]</span><span class="o">.</span><span class="n">persist</span><span class="p">()</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">ddf</span><span class="p">[</span><span class="n">target</span><span class="p">]</span><span class="o">.</span><span class="n">persist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>home_team_goal    25979
+away_team_goal    25979
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dask.distributed</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">threads_per_worker</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="n">n_workers</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">memory_limit</span><span class="o">=</span><span class="s1">&#39;4GB&#39;</span><span class="p">)</span>
+<span class="n">client</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table style="border: 2px solid white;">
+<tr>
+<td style="vertical-align: top; border: 0px solid white">
+<h3 style="text-align: left;">Client</h3>
+<ul style="text-align: left; list-style: none; margin: 0; padding: 0;">
+  <li><b>Scheduler: </b>inproc://192.168.1.71/12521/1</li>
+  <li><b>Dashboard: </b><a href='http://192.168.1.71:8787/status' target='_blank'>http://192.168.1.71:8787/status</a></li>
+</ul>
+</td>
+<td style="vertical-align: top; border: 0px solid white">
+<h3 style="text-align: left;">Cluster</h3>
+<ul style="text-align: left; list-style:none; margin: 0; padding: 0;">
+  <li><b>Workers: </b>3</li>
+  <li><b>Cores: </b>6</li>
+  <li><b>Memory: </b>12.00 GB</li>
+</ul>
+</td>
+</tr>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dask_ml.xgboost</span> <span class="kn">import</span> <span class="n">XGBRegressor</span>
+
+<span class="n">XGBR</span> <span class="o">=</span> <span class="n">XGBRegressor</span><span class="p">()</span>
+
+<span class="n">XGBR_model</span> <span class="o">=</span> <span class="n">XGBR</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># from dask_ml.xgboost import XGBClassifier</span>
+
+<span class="c1"># XGBC = XGBClassifier()</span>
+
+<span class="c1"># XGBC_model = XGBC.fit(X_train,y_train)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;home_team_win&quot;</span><span class="p">]</span>
+<span class="n">X</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country_name</th>
+      <th>league_name</th>
+      <th>season</th>
+      <th>stage</th>
+      <th>date</th>
+      <th>home_team</th>
+      <th>away_team</th>
+      <th>home_team_goal</th>
+      <th>away_team_goal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>1</td>
+      <td>2008-07-18 00:00:00</td>
+      <td>BSC Young Boys</td>
+      <td>FC Basel</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>1</td>
+      <td>2008-07-19 00:00:00</td>
+      <td>FC Aarau</td>
+      <td>FC Sion</td>
+      <td>3</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>1</td>
+      <td>2008-07-20 00:00:00</td>
+      <td>FC Luzern</td>
+      <td>FC Vaduz</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>1</td>
+      <td>2008-07-20 00:00:00</td>
+      <td>Neuchâtel Xamax</td>
+      <td>FC Zürich</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2008/2009</td>
+      <td>2</td>
+      <td>2008-07-23 00:00:00</td>
+      <td>FC Basel</td>
+      <td>Grasshopper Club Zürich</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>25974</th>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2015/2016</td>
+      <td>36</td>
+      <td>2016-05-25 00:00:00</td>
+      <td>FC Basel</td>
+      <td>Grasshopper Club Zürich</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>25975</th>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2015/2016</td>
+      <td>36</td>
+      <td>2016-05-25 00:00:00</td>
+      <td>Lugano</td>
+      <td>FC St. Gallen</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>25976</th>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2015/2016</td>
+      <td>36</td>
+      <td>2016-05-25 00:00:00</td>
+      <td>FC Luzern</td>
+      <td>FC Sion</td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>25977</th>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2015/2016</td>
+      <td>36</td>
+      <td>2016-05-25 00:00:00</td>
+      <td>FC Thun</td>
+      <td>BSC Young Boys</td>
+      <td>0</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>25978</th>
+      <td>Switzerland</td>
+      <td>Switzerland Super League</td>
+      <td>2015/2016</td>
+      <td>36</td>
+      <td>2016-05-25 00:00:00</td>
+      <td>FC Zürich</td>
+      <td>FC Vaduz</td>
+      <td>3</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>25979 rows × 9 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">ddf</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;home_team_win&quot;</span><span class="p">]</span>
+<span class="n">X</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><strong>Dask DataFrame Structure:</strong></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country_name</th>
+      <th>league_name</th>
+      <th>season</th>
+      <th>stage</th>
+      <th>date</th>
+      <th>home_team</th>
+      <th>away_team</th>
+      <th>home_team_goal</th>
+      <th>away_team_goal</th>
+    </tr>
+    <tr>
+      <th>npartitions=5</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>int64</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>int64</td>
+      <td>int64</td>
+    </tr>
+    <tr>
+      <th>5196</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>20784</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>25978</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div>Dask Name: getitem, 10 tasks</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    0
+1    1
+2    0
+3    0
+4    1
+5    0
+6    1
+7    1
+8    0
+9    1
+Name: home_team_win, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import xgboost</span>
+
+<span class="c1"># dtrain = xgboost.DMatrix(X_train, y_train)</span>
+<span class="c1"># dtest = xgboost.DMatrix(X_test, y_test)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="2020-11-10-Dask-api-eda.html" title="previous page">Dask API for analytics</a>
+    <a class='right-next' id="next-link" href="2020-10-14-dask-xgboost-HT-OHE.html" title="next page">Using dask_ml.preprocessing and OneHotEncoder for categorical encoding with Dask</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By David Kearney<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>
