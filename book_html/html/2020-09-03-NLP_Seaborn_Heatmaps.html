@@ -1,0 +1,1001 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NLP Heatmaps with Seaborn &#8212; Hands On Data Science at Scale with PySpark, Dask and H2O.</title>
+    
+  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="RDDs and Schemas and Data Types with Pyspark" href="2020-08-21-RDDs%20and%20Schemas%20and%20Data%20Types%20with%20Pyspark.html" />
+    <link rel="prev" title="Using Dask for Arrays" href="2020-10-08-Dask-Day-1.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Hands On Data Science at Scale with PySpark, Dask and H2O.</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-25-ARIMA-ADF-FORECASTING.html">
+   Stock Market Analysis of the S&amp;P 500 Index using ARIMA and Seasonal ARIMA for forecasting
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-17-Pyspark-Group-By.html">
+   Group By and Aggregation with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-22-Window%20functions%20and%20Pivot%20Tables%20with%20Pyspark.html">
+   Window functions and Pivot Tables with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-29-Clustering%20with%20Pyspark.html">
+   Clustering with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-27-sql_calls_in_jupyter_Soccer_Pred.html">
+   Working with sqlite databases in Jupyter for Visualizing European Soccer Match Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-19-ttests-distributions-crosstabs-functions.html">
+   Evaluating Distributions and generating Experimental Crosstabs for the Evaluation of Experiments as well as Experimental Comparisons with T-Tests, Purpose Assumptions, Corrections and Implementations in Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-24-AnalyzingUSRealInterestRate.html">
+   Analyzing US Real Interest Rate From 1959 - 2009 with statsmodels
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-30-NLP%20with%20Pyspark.html">
+   NLP with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-19-Pyspark-Filtering.html">
+   Dataframe Filitering and Operations with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-28-PCA-with-sklearn.html">
+   Principal component analysis with sklearn
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-20-Dask-Diab.html">
+   Dask for Predicting Onset/Diagnosis of Chronic Conditions, Diabetes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-17-dask-NLP-gutenberg-books.html">
+   Using Dask with dask.bag and regex to parse Notes from the Underground from project gutenberg
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-17-dask-NLP-gutenberg-books.html#removing-stop-words-in-top-word-frequency-counts">
+   Removing stop words in top word frequency counts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-30-StockMarketPortfolioAnaylsis_snp.html">
+   Stock Market and Portfolio Anaylsis of the S&amp;P 500 with pandas and quandl
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-10-Dask_Fiscal-db-to-dask-dataframe.html">
+   Working with dask data frames. Reading Fiscal Data from a sqlite db to a dask dataframe. Computing, visualizing and groupby with dask dataframes. Using dask.distributed locally.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-20-Pyspark-Dataframes-Data-Types.html">
+   Dataframes, Formatting, Casting Data Type and Correlation with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-13-dask-xgboost-fiscal-data.html">
+   Moving Dask XGboost with Fiscal Data, saving and loading Dask XGboost models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-12-dask-xgboost-fiscal-data..html">
+   Visualizing Operations with Dask Dataframes on Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-01-StockMarketPortfolioAnaylsis_snp%2B.html">
+   Stock Market and Portfolio Anaylsis of the S&amp;P 500 various metrics with pandas and quandl
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-25-Linear%20Regression%20and%20Random%20Forest_GBT%20Classification%20with%20Pyspark.html">
+   Regression and Classification with Pyspark ML
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-16-pandas-stats-fiscal.html">
+   Using Pandas and Statsmodels for Regression with Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-21-StockMarketPortfolioAnaylsis2.html">
+   Stock Market and Optimal Portfolio Anaylsis scipy and quandl
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-18-Pyspark-NAs.html">
+   Handling Missing Data with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-29-pyquery_for_ebooks_python.html">
+   Creating E-Books (.epub) in python using ebooklib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-09-dask-sql.html">
+   Using Dask and dask-sql
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-15-Pyspark-Fiscal-Data-Regression.html">
+   Pyspark Regression with Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-02-NLP_Ngram.html">
+   NLP ngrams With Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-22-Linear%20Regression%20and%20Random%20Forest_GBT%20Classification%20with%20Pyspark.html">
+   Regression and Classification with Pyspark ML
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-16-automl-capabilities-of-h2o-library.html">
+   AutoML, Xgboost and H2O
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-21-quant_data_datareader_quandl.html">
+   Using the Quandl API and Pandas Datareader API to call Microsoft, Apple, Zoom, Snowflake stocks and other finance data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-12-dask-xgboost-fiscal-data.html">
+   Visualizing Operations with Dask Dataframes on Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="bibliography.html">
+   Bibliography for Hands On Data Science at Scale with PySpark, Dask and H2O.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="building_book.html">
+   Creating the book:
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-10-Dask-api-eda.html">
+   Dask API for analytics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-31-sql_calls_in_jupyter_Soccer_explore.html">
+   Working with sqlite databases in Jupyter for Visualizing European Soccer Match Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-14-dask-xgboost-HT-OHE.html">
+   Using dask_ml.preprocessing and OneHotEncoder for categorical encoding with Dask
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-05-StockMarketPortfolioAnaylsis_snp_pandas_datareader_sqlite-Copy1.html">
+   Using sqlalchemy and pandas to read and write from and to a local sqlite database for Stock Market and Portfolio Anaylsis Tech Stocks and the S&amp;P 500 in 2020
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="toc.html">
+   Table of Contents for Data Science at Scale
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-09-Dask_Fiscal-Data-Sqlite-db.html">
+   Moving fiscal data from a pandas dataframe to a sqlite local database
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-04-StockMarketPortfolioAnaylsis_snp_pandas_datareader_sqlite-Copy1.html">
+   Stock Market and Portfolio Anaylsis Tech Stocks and the S&amp;P 500 in 2020 with pandas_datareader and writing to at sqlite database
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-22-stock-market-returns.html">
+   Stock Market Analysis of Microsoft, Zoom, and Snowflake
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-25-AnalyzingSizeofArmedForces.html">
+   Analyzing Size of Armed Forces From 1947 - 1963 with statsmodels
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-30-Function-for-zillow-data-quandl-api.html">
+   Using quandl zillow api for Chicago and Evanston Home Sale Prices using ARIMA and EWMAs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-18-ttests-distributions-crosstabs.html">
+   Evaluating Distributions and generating experimental Crosstabs for the evaluation of Experiments
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-11-dask-xgboost-fiscal-data.html">
+   Moving Fiscal Data from a sqlite db to a dask dataframe
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-22-AnalyzingUSUnemployment.html">
+   Analyzing US Unemployment From 1959 - 2009 with statsmodels
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-19-StockMarketPortfolioAnaylsis.html">
+   Stock Market and Portfolio Anaylsis with pandas_datareader and quandl
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-23-AnalyzingUSInflation.html">
+   Analyzing US Inflation From 1959 - 2009 with statsmodels
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-28-databases_sqllite_sqlalchemy_27.html">
+   Creating and accessing SQL databases with python using sqlalchemy and sqlite3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="setup.html">
+   Setting Up Computing Enviroment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-07-Fiscal_data-sqlitedb-Copy1.html">
+   Using sqlalchemy and pandas to read and write from and to a local sqlite database for Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-06-NLP-sqlitedb.html">
+   Using sqlalchemy and pandas to read and write from and to a local sqlite database for NLP
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-17-diab_prediction_with_h2o.html">
+   Predicting Onset/Diagnosis of Chronic Conditions, Diabetes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-17-diab_prediction_with_h2o.html#national-institute-of-diabetes-and-digestive-and-kidney-diseases-https-www-niddk-nih-gov">
+   National Institute of Diabetes and Digestive and Kidney Diseases, https://www.niddk.nih.gov/
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Hands On Data Science at Scale with PySpark, Dask and H2O.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-26-Working_with_sqlite3_dbs_in_jupyter_Soccer_Pred.html">
+   Working with sqlite databases in Jupyter for European Soccer Match Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-16-dask-NLP-gutenberg-books.html">
+   Using Dask with dask.bag and regex to parse The Brothers Karamazov from project gutenberg
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-16-dask-NLP-gutenberg-books.html#removing-stop-words-in-top-word-frequency-counts">
+   Removing stop words in top word frequency counts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-02-databases_sqllite_sqlalchemy_27-Copy1.html">
+   Creating and accessing SQL databases with python using sqlalchemy and sqlite
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="git_setup.html">
+   Setting up Version Control/Git Configuration:
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-15-dask-xgboost-Linear-Regresion-Copy1.html">
+   Linear Regression using Dask Data Frames
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-08-Dask-Day-1.html">
+   Using Dask for Arrays
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   NLP Heatmaps with Seaborn
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-21-RDDs%20and%20Schemas%20and%20Data%20Types%20with%20Pyspark.html">
+   RDDs and Schemas and Data Types with Pyspark
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/2020-09-03-NLP_Seaborn_Heatmaps.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/2020-09-03-NLP_Seaborn_Heatmaps.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="nlp-heatmaps-with-seaborn">
+<h1>NLP Heatmaps with Seaborn<a class="headerlink" href="#nlp-heatmaps-with-seaborn" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jupyterthemes</span> <span class="kn">import</span> <span class="n">jtplot</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">imblearn.over_sampling</span> <span class="kn">import</span> <span class="n">SMOTE</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas_profiling</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">preprocessing</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="c1"># ignore warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+<span class="n">jtplot</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="n">theme</span><span class="o">=</span><span class="s1">&#39;oceans16&#39;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s1">&#39;notebook&#39;</span><span class="p">,</span>
+             <span class="n">ticks</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../processed_data/nf_complete.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 126 entries, 0 to 125
+Data columns (total 23 columns):
+ #   Column                 Non-Null Count  Dtype 
+---  ------                 --------------  ----- 
+ 0   Unnamed: 0             126 non-null    int64 
+ 1   year                   126 non-null    int64 
+ 2   title                  126 non-null    object
+ 3   abstract               126 non-null    object
+ 4   theme                  126 non-null    object
+ 5   China                  126 non-null    int64 
+ 6   Russia                 126 non-null    int64 
+ 7   War                    126 non-null    int64 
+ 8   President              126 non-null    int64 
+ 9   US                     126 non-null    int64 
+ 10  Vietnam                126 non-null    int64 
+ 11  Cold War               126 non-null    int64 
+ 12  World War              126 non-null    int64 
+ 13  Vietnam War            126 non-null    int64 
+ 14  Korean War             126 non-null    int64 
+ 15  Survey                 126 non-null    int64 
+ 16  Case Study             126 non-null    int64 
+ 17  Trade                  126 non-null    int64 
+ 18  Humanitarian           126 non-null    int64 
+ 19  fixed_effects          126 non-null    int64 
+ 20  instrumental_variable  126 non-null    int64 
+ 21  regression             126 non-null    int64 
+ 22  experimental           126 non-null    int64 
+dtypes: int64(20), object(3)
+memory usage: 22.8+ KB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">plotly_express</span> <span class="k">as</span> <span class="nn">ple</span>
+<span class="n">ple</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;year&#39;</span><span class="p">,</span><span class="s1">&#39;theme&#39;</span><span class="p">])[</span><span class="s1">&#39;Cold War&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Cold War&quot;</span><span class="p">,</span> <span class="n">histfunc</span><span class="o">=</span><span class="s2">&quot;sum&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;theme&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+
+
+            <div id="88421b26-aece-4630-92a2-94e95a93acf8" class="plotly-graph-div" style="height:600px; width:100%;"></div>
+            <script type="text/javascript">
+                require(["plotly"], function(Plotly) {
+                    window.PLOTLYENV=window.PLOTLYENV || {};
+
+                if (document.getElementById("88421b26-aece-4630-92a2-94e95a93acf8")) {
+                    Plotly.newPlot(
+                        '88421b26-aece-4630-92a2-94e95a93acf8',
+                        [{"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Conflict Between States<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Conflict Between States", "marker": {"color": "#636efa"}, "name": "theme=Conflict Between States", "offsetgroup": "theme=Conflict Between States", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2000, 2002, 2008, 2009], "xaxis": "x", "y": [0, 0, 0, 0], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Conflit Between States<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Conflit Between States", "marker": {"color": "#EF553B"}, "name": "theme=Conflit Between States", "offsetgroup": "theme=Conflit Between States", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2000], "xaxis": "x", "y": [1], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Culture<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Culture", "marker": {"color": "#00cc96"}, "name": "theme=Culture", "offsetgroup": "theme=Culture", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2000, 2002], "xaxis": "x", "y": [0, 0], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Culture / Peace Process<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Culture / Peace Process", "marker": {"color": "#ab63fa"}, "name": "theme=Culture / Peace Process", "offsetgroup": "theme=Culture / Peace Process", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2000], "xaxis": "x", "y": [0], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Domestic Military History<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Domestic Military History", "marker": {"color": "#FFA15A"}, "name": "theme=Domestic Military History", "offsetgroup": "theme=Domestic Military History", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2000], "xaxis": "x", "y": [0], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=IR scholarship<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=IR scholarship", "marker": {"color": "#19d3f3"}, "name": "theme=IR scholarship", "offsetgroup": "theme=IR scholarship", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2000], "xaxis": "x", "y": [1], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Canadian History / War History<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Canadian History / War History", "marker": {"color": "#FF6692"}, "name": "theme=Canadian History / War History", "offsetgroup": "theme=Canadian History / War History", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2001], "xaxis": "x", "y": [0], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Conflict between states<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Conflict between states", "marker": {"color": "#B6E880"}, "name": "theme=Conflict between states", "offsetgroup": "theme=Conflict between states", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2001, 2008, 2012, 2014, 2016, 2018], "xaxis": "x", "y": [0, 0, 0, 0, 1, 0], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Ethics of War<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Ethics of War", "marker": {"color": "#FF97FF"}, "name": "theme=Ethics of War", "offsetgroup": "theme=Ethics of War", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2001], "xaxis": "x", "y": [0], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=IR Scholarship<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=IR Scholarship", "marker": {"color": "#FECB52"}, "name": "theme=IR Scholarship", "offsetgroup": "theme=IR Scholarship", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2001, 2002, 2004, 2005, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2017, 2018], "xaxis": "x", "y": [1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Military History<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Military History", "marker": {"color": "#636efa"}, "name": "theme=Military History", "offsetgroup": "theme=Military History", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2001, 2002, 2003, 2004, 2005, 2008, 2009, 2010, 2012, 2013, 2015, 2016, 2017, 2018], "xaxis": "x", "y": [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Peace Process<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Peace Process", "marker": {"color": "#EF553B"}, "name": "theme=Peace Process", "offsetgroup": "theme=Peace Process", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2001], "xaxis": "x", "y": [0], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Civil War<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Civil War", "marker": {"color": "#00cc96"}, "name": "theme=Civil War", "offsetgroup": "theme=Civil War", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2002], "xaxis": "x", "y": [0], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Military Technology<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Military Technology", "marker": {"color": "#ab63fa"}, "name": "theme=Military Technology", "offsetgroup": "theme=Military Technology", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2002], "xaxis": "x", "y": [1], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Nuclear Weapons<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Nuclear Weapons", "marker": {"color": "#FFA15A"}, "name": "theme=Nuclear Weapons", "offsetgroup": "theme=Nuclear Weapons", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2002, 2009, 2014, 2015, 2018], "xaxis": "x", "y": [0, 0, 0, 0, 0], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Vietnam War / Conflict Between States<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Vietnam War / Conflict Between States", "marker": {"color": "#19d3f3"}, "name": "theme=Vietnam War / Conflict Between States", "offsetgroup": "theme=Vietnam War / Conflict Between States", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2002], "xaxis": "x", "y": [1], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Unconventional Warfare / Conflcit Between States<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Unconventional Warfare / Conflcit Between States", "marker": {"color": "#FF6692"}, "name": "theme=Unconventional Warfare / Conflcit Between States", "offsetgroup": "theme=Unconventional Warfare / Conflcit Between States", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2003], "xaxis": "x", "y": [0], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Conflict Between states<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Conflict Between states", "marker": {"color": "#B6E880"}, "name": "theme=Conflict Between states", "offsetgroup": "theme=Conflict Between states", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2004], "xaxis": "x", "y": [0], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=ConflictBetween states<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=ConflictBetween states", "marker": {"color": "#FF97FF"}, "name": "theme=ConflictBetween states", "offsetgroup": "theme=ConflictBetween states", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2004], "xaxis": "x", "y": [0], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Domestic Policy<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Domestic Policy", "marker": {"color": "#FECB52"}, "name": "theme=Domestic Policy", "offsetgroup": "theme=Domestic Policy", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2005], "xaxis": "x", "y": [0], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Miltary History<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Miltary History", "marker": {"color": "#636efa"}, "name": "theme=Miltary History", "offsetgroup": "theme=Miltary History", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2007], "xaxis": "x", "y": [1], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Nonstate<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Nonstate", "marker": {"color": "#EF553B"}, "name": "theme=Nonstate", "offsetgroup": "theme=Nonstate", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2007, 2008, 2013], "xaxis": "x", "y": [0, 0, 0], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Other<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Other", "marker": {"color": "#00cc96"}, "name": "theme=Other", "offsetgroup": "theme=Other", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2007, 2008, 2013], "xaxis": "x", "y": [1, 0, 0], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=ICS<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=ICS", "marker": {"color": "#ab63fa"}, "name": "theme=ICS", "offsetgroup": "theme=ICS", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2009], "xaxis": "x", "y": [0], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Non-state<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Non-state", "marker": {"color": "#FFA15A"}, "name": "theme=Non-state", "offsetgroup": "theme=Non-state", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2009, 2010, 2015, 2016], "xaxis": "x", "y": [0, 0, 0, 0], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Cold War<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Cold War", "marker": {"color": "#19d3f3"}, "name": "theme=Cold War", "offsetgroup": "theme=Cold War", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2010, 2017, 2018], "xaxis": "x", "y": [1, 1, 1], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Terrorism<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Terrorism", "marker": {"color": "#FF6692"}, "name": "theme=Terrorism", "offsetgroup": "theme=Terrorism", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2010], "xaxis": "x", "y": [0], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Non-State<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Non-State", "marker": {"color": "#B6E880"}, "name": "theme=Non-State", "offsetgroup": "theme=Non-State", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2011], "xaxis": "x", "y": [0], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=IR Scholarship / Nuclear Weapons<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=IR Scholarship / Nuclear Weapons", "marker": {"color": "#FF97FF"}, "name": "theme=IR Scholarship / Nuclear Weapons", "offsetgroup": "theme=IR Scholarship / Nuclear Weapons", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2012], "xaxis": "x", "y": [0], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Civil-military<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Civil-military", "marker": {"color": "#FECB52"}, "name": "theme=Civil-military", "offsetgroup": "theme=Civil-military", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2014], "xaxis": "x", "y": [0], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Soviet Union<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Soviet Union", "marker": {"color": "#636efa"}, "name": "theme=Soviet Union", "offsetgroup": "theme=Soviet Union", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2015], "xaxis": "x", "y": [1], "yaxis": "y"}, {"alignmentgroup": "True", "bingroup": "x", "histfunc": "sum", "hoverlabel": {"namelength": 0}, "hovertemplate": "theme=Civ-Mil<br>year=%{x}<br>sum of Cold War=%{y}", "legendgroup": "theme=Civ-Mil", "marker": {"color": "#EF553B"}, "name": "theme=Civ-Mil", "offsetgroup": "theme=Civ-Mil", "orientation": "v", "showlegend": true, "type": "histogram", "x": [2016], "xaxis": "x", "y": [0], "yaxis": "y"}],
+                        {"barmode": "relative", "height": 600, "legend": {"tracegroupgap": 0}, "margin": {"t": 60}, "template": {"data": {"bar": [{"error_x": {"color": "#2a3f5f"}, "error_y": {"color": "#2a3f5f"}, "marker": {"line": {"color": "#E5ECF6", "width": 0.5}}, "type": "bar"}], "barpolar": [{"marker": {"line": {"color": "#E5ECF6", "width": 0.5}}, "type": "barpolar"}], "carpet": [{"aaxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "baxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "type": "carpet"}], "choropleth": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "choropleth"}], "contour": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "contour"}], "contourcarpet": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "contourcarpet"}], "heatmap": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "heatmap"}], "heatmapgl": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "heatmapgl"}], "histogram": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "histogram"}], "histogram2d": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "histogram2d"}], "histogram2dcontour": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "histogram2dcontour"}], "mesh3d": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "mesh3d"}], "parcoords": [{"line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "parcoords"}], "scatter": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatter"}], "scatter3d": [{"line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatter3d"}], "scattercarpet": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattercarpet"}], "scattergeo": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattergeo"}], "scattergl": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattergl"}], "scattermapbox": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattermapbox"}], "scatterpolar": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterpolar"}], "scatterpolargl": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterpolargl"}], "scatterternary": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterternary"}], "surface": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "surface"}], "table": [{"cells": {"fill": {"color": "#EBF0F8"}, "line": {"color": "white"}}, "header": {"fill": {"color": "#C8D4E3"}, "line": {"color": "white"}}, "type": "table"}]}, "layout": {"annotationdefaults": {"arrowcolor": "#2a3f5f", "arrowhead": 0, "arrowwidth": 1}, "colorscale": {"diverging": [[0, "#8e0152"], [0.1, "#c51b7d"], [0.2, "#de77ae"], [0.3, "#f1b6da"], [0.4, "#fde0ef"], [0.5, "#f7f7f7"], [0.6, "#e6f5d0"], [0.7, "#b8e186"], [0.8, "#7fbc41"], [0.9, "#4d9221"], [1, "#276419"]], "sequential": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "sequentialminus": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}, "colorway": ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#FFA15A", "#19d3f3", "#FF6692", "#B6E880", "#FF97FF", "#FECB52"], "font": {"color": "#2a3f5f"}, "geo": {"bgcolor": "white", "lakecolor": "white", "landcolor": "#E5ECF6", "showlakes": true, "showland": true, "subunitcolor": "white"}, "hoverlabel": {"align": "left"}, "hovermode": "closest", "mapbox": {"style": "light"}, "paper_bgcolor": "white", "plot_bgcolor": "#E5ECF6", "polar": {"angularaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "bgcolor": "#E5ECF6", "radialaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "scene": {"xaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}, "yaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}, "zaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}}, "shapedefaults": {"line": {"color": "#2a3f5f"}}, "ternary": {"aaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "baxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "bgcolor": "#E5ECF6", "caxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "title": {"x": 0.05}, "xaxis": {"automargin": true, "gridcolor": "white", "linecolor": "white", "ticks": "", "zerolinecolor": "white", "zerolinewidth": 2}, "yaxis": {"automargin": true, "gridcolor": "white", "linecolor": "white", "ticks": "", "zerolinecolor": "white", "zerolinewidth": 2}}}, "xaxis": {"anchor": "y", "domain": [0.0, 0.98], "title": {"text": "year"}}, "yaxis": {"anchor": "x", "domain": [0.0, 1.0], "title": {"text": "sum of Cold War"}}},
+                        {"responsive": true}
+                    ).then(function(){
+
+var gd = document.getElementById('88421b26-aece-4630-92a2-94e95a93acf8');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })
+                };
+                });
+            </script>
+        </div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ple.lidifferences(dfm_regional.sort_values(&#39;year&#39;).groupby([&#39;year&#39;,&#39;theme&#39;])[&#39;Cold War&#39;].sum().reset_index(),</span>
+<span class="c1">#          x=&#39;year&#39;,</span>
+<span class="c1">#          y=&#39;Cold War&#39;,</span>
+<span class="c1">#          line_group=&#39;theme&#39;,</span>
+<span class="c1">#          color=&#39;theme&#39;</span>
+<span class="c1">#         )</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the crosstab DataFrame</span>
+<span class="n">pd_crosstab</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;theme&quot;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">])</span>
+
+<span class="c1"># Plot a heatmap of the table with no color bar and using the BuGn palette</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">pd_crosstab</span><span class="p">,</span> <span class="n">cbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;GnBu&quot;</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># Rotate tick marks for visibility</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="c1">#plt.savefig(&#39;./img/theme_heat_1.png&#39;, bbox_inches=&#39;tight&#39;, dpi=500)</span>
+
+
+<span class="c1">#Show the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2020-09-03-NLP_Seaborn_Heatmaps_6_0.png" src="_images/2020-09-03-NLP_Seaborn_Heatmaps_6_0.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 720x648 with 0 Axes&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">clustermap</span><span class="p">(</span><span class="n">pd_crosstab</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Greens&#39;</span><span class="p">,</span> <span class="n">robust</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># plot using a color palette</span>
+<span class="c1">#sns.heatmap(df, cmap=&quot;YlGnBu&quot;)</span>
+<span class="c1">#sns.heatmap(df, cmap=&quot;Blues&quot;)</span>
+<span class="c1">#sns.heatmap(df, cmap=&quot;BuPu&quot;)</span>
+<span class="c1">#sns.heatmap(df, cmap=&quot;Greens&quot;)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.matrix.ClusterGrid at 0x7f978c07a470&gt;
+</pre></div>
+</div>
+<img alt="_images/2020-09-03-NLP_Seaborn_Heatmaps_7_1.png" src="_images/2020-09-03-NLP_Seaborn_Heatmaps_7_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import seaborn library</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="c1"># Get correlation matrix of the meat DataFrame</span>
+<span class="n">corr_meat</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;pearson&#39;</span><span class="p">)</span>
+
+<span class="c1"># Customize the heatmap of the corr_meat correlation matrix and rotate the x-axis labels</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">clustermap</span><span class="p">(</span><span class="n">pd_crosstab</span><span class="p">,</span>
+                     <span class="n">row_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                     <span class="n">col_cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                     <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">ax_heatmap</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">get_majorticklabels</span><span class="p">(),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">ax_heatmap</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">get_majorticklabels</span><span class="p">(),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2020-09-03-NLP_Seaborn_Heatmaps_8_0.png" src="_images/2020-09-03-NLP_Seaborn_Heatmaps_8_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_normalized</span> <span class="o">=</span> <span class="n">pd_crosstab</span>
+
+<span class="c1"># Standardize the mean and variance within a stat, so different stats can be comparable</span>
+<span class="c1"># (This is the same as changing all the columns to Z-scores)</span>
+<span class="n">data_normalized</span> <span class="o">=</span> <span class="p">(</span><span class="n">data_normalized</span> <span class="o">-</span> <span class="n">data_normalized</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">/</span><span class="n">data_normalized</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>
+
+<span class="c1"># Normalize these values to range from -1 to 1</span>
+<span class="n">data_normalized</span> <span class="o">=</span> <span class="p">(</span><span class="n">data_normalized</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">data_normalized</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">data_normalized</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+
+<span class="n">data_normalized</span> <span class="o">=</span> <span class="n">data_normalized</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c1"># Can use a semicolon after the command to suppress output of the row_dendrogram and col_dendrogram.</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">clustermap</span><span class="p">(</span><span class="n">data_normalized</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2020-09-03-NLP_Seaborn_Heatmaps_9_0.png" src="_images/2020-09-03-NLP_Seaborn_Heatmaps_9_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_normalized</span> <span class="o">=</span> <span class="n">pd_crosstab</span>
+
+<span class="c1"># Standardize the mean and variance within a stat, so different stats can be comparable</span>
+<span class="c1"># (This is the same as changing all the columns to Z-scores)</span>
+<span class="n">data_normalized</span> <span class="o">=</span> <span class="p">(</span><span class="n">data_normalized</span> <span class="o">-</span> <span class="n">data_normalized</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">/</span><span class="n">data_normalized</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>
+
+<span class="c1"># Normalize these values to range from -1 to 1</span>
+<span class="n">data_normalized</span> <span class="o">=</span> <span class="p">(</span><span class="n">data_normalized</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">data_normalized</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">data_normalized</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+
+<span class="c1">#data_normalized = data_normalized.T</span>
+
+<span class="c1"># Can use a semicolon after the command to suppress output of the row_dendrogram and col_dendrogram.</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">clustermap</span><span class="p">(</span><span class="n">data_normalized</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;BuPu&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2020-09-03-NLP_Seaborn_Heatmaps_10_0.png" src="_images/2020-09-03-NLP_Seaborn_Heatmaps_10_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">clustermap</span><span class="p">(</span><span class="n">data_normalized</span><span class="p">);</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;clusteredheatmap_bbox_tight.png&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2020-09-03-NLP_Seaborn_Heatmaps_11_0.png" src="_images/2020-09-03-NLP_Seaborn_Heatmaps_11_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tidy_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">id_vars</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>116</th>
+      <th>117</th>
+      <th>118</th>
+      <th>119</th>
+      <th>120</th>
+      <th>121</th>
+      <th>122</th>
+      <th>123</th>
+      <th>124</th>
+      <th>125</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Unnamed: 0</th>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>14</td>
+      <td>13</td>
+      <td>...</td>
+      <td>128</td>
+      <td>130</td>
+      <td>123</td>
+      <td>125</td>
+      <td>131</td>
+      <td>132</td>
+      <td>133</td>
+      <td>134</td>
+      <td>135</td>
+      <td>136</td>
+    </tr>
+    <tr>
+      <th>year</th>
+      <td>2000</td>
+      <td>2000</td>
+      <td>2000</td>
+      <td>2000</td>
+      <td>2000</td>
+      <td>2000</td>
+      <td>2000</td>
+      <td>2000</td>
+      <td>2001</td>
+      <td>2001</td>
+      <td>...</td>
+      <td>2017</td>
+      <td>2017</td>
+      <td>2017</td>
+      <td>2017</td>
+      <td>2018</td>
+      <td>2018</td>
+      <td>2018</td>
+      <td>2018</td>
+      <td>2018</td>
+      <td>2018</td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td>"Institutions at the Domestic/International Ne...</td>
+      <td>Born to Lose and Doomed to Survive: State Deat...</td>
+      <td>The significance of “allegiance” in internatio...</td>
+      <td>The significance of “allegiance” in internatio...</td>
+      <td>Truth-Telling and Mythmaking in Post-Soviet Ru...</td>
+      <td>Building a Cape Fear Metropolis: Fort Bragg, F...</td>
+      <td>The Glories and the Sadness: Shaping the natio...</td>
+      <td>What leads longstanding adversaries to engage ...</td>
+      <td>A School for the Nation: Military  Institution...</td>
+      <td>The 'American Century' Army:  The Origins of t...</td>
+      <td>...</td>
+      <td>Fully Committed? Religiously Committed State P...</td>
+      <td>Straddling the Threshold of Two Worlds: Soldie...</td>
+      <td>U.S. Army’s Investigation and Adjudication of ...</td>
+      <td>Grand Strategic Crucibles: The Lasting Effects...</td>
+      <td>Trust in International Politics: The Role of L...</td>
+      <td>Planning for the Short Haul: Trade Among Belli...</td>
+      <td>Clinging to the Anti-Imperial Mantle: The Repu...</td>
+      <td>The New Navy's Pacific Wars:  Peripheral Confl...</td>
+      <td>Stop or I'll Shoot, Comply and I Won't: The Di...</td>
+      <td>Unexpected Humanitarians: Albania, the U.S. Mi...</td>
+    </tr>
+    <tr>
+      <th>abstract</th>
+      <td>Civil-military relations are frequently studie...</td>
+      <td>Under what conditions do states die, or exit t...</td>
+      <td>My dissertation employs original and secondary...</td>
+      <td>\nThis study revises prevailing interpretation...</td>
+      <td>Can distorted and pernicious ideas about histo...</td>
+      <td>My dissertation examines the cultural and econ...</td>
+      <td>In my dissertation I compare the ways in whic...</td>
+      <td>This dissertation develops a socio-psychoanal...</td>
+      <td>Beginning in Europe in the latter half of the ...</td>
+      <td>This dissertation covers the period 1949-1959 ...</td>
+      <td>...</td>
+      <td>This dissertation argues that the higher the l...</td>
+      <td>This dissertation explores how American soldie...</td>
+      <td>This dissertation examines the U.S. Army’s res...</td>
+      <td>When and how do military interventions shape g...</td>
+      <td>In my dissertation, I focus on how leader rela...</td>
+      <td>In times of war, why do belligerents continue ...</td>
+      <td>My dissertation project, Clinging to the Anti-...</td>
+      <td>Using a transnational methodology and sources ...</td>
+      <td>There is a dilemma at the heart of coercion. S...</td>
+      <td>Using archives and oral history, this disserta...</td>
+    </tr>
+    <tr>
+      <th>theme</th>
+      <td>IR scholarship</td>
+      <td>IR scholarship</td>
+      <td>IR scholarship</td>
+      <td>Conflit Between States</td>
+      <td>Conflict Between States</td>
+      <td>Domestic Military History</td>
+      <td>Culture</td>
+      <td>Culture / Peace Process</td>
+      <td>Military History</td>
+      <td>Military History</td>
+      <td>...</td>
+      <td>IR Scholarship</td>
+      <td>Military History</td>
+      <td>Military History</td>
+      <td>IR Scholarship</td>
+      <td>Nuclear Weapons</td>
+      <td>Conflict between states</td>
+      <td>Cold War</td>
+      <td>Military History</td>
+      <td>IR Scholarship</td>
+      <td>Military History</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 126 columns</p>
+</div></div></div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="2020-10-08-Dask-Day-1.html" title="previous page">Using Dask for Arrays</a>
+    <a class='right-next' id="next-link" href="2020-08-21-RDDs%20and%20Schemas%20and%20Data%20Types%20with%20Pyspark.html" title="next page">RDDs and Schemas and Data Types with Pyspark</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By David Kearney<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

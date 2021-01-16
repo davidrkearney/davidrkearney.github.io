@@ -1,0 +1,1540 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stock Market and Optimal Portfolio Anaylsis scipy and quandl &#8212; Hands On Data Science at Scale with PySpark, Dask and H2O.</title>
+    
+  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Handling Missing Data with Pyspark" href="2020-08-18-Pyspark-NAs.html" />
+    <link rel="prev" title="Using Pandas and Statsmodels for Regression with Fiscal Data" href="2020-08-16-pandas-stats-fiscal.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Hands On Data Science at Scale with PySpark, Dask and H2O.</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-25-ARIMA-ADF-FORECASTING.html">
+   Stock Market Analysis of the S&amp;P 500 Index using ARIMA and Seasonal ARIMA for forecasting
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-17-Pyspark-Group-By.html">
+   Group By and Aggregation with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-22-Window%20functions%20and%20Pivot%20Tables%20with%20Pyspark.html">
+   Window functions and Pivot Tables with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-29-Clustering%20with%20Pyspark.html">
+   Clustering with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-27-sql_calls_in_jupyter_Soccer_Pred.html">
+   Working with sqlite databases in Jupyter for Visualizing European Soccer Match Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-19-ttests-distributions-crosstabs-functions.html">
+   Evaluating Distributions and generating Experimental Crosstabs for the Evaluation of Experiments as well as Experimental Comparisons with T-Tests, Purpose Assumptions, Corrections and Implementations in Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-24-AnalyzingUSRealInterestRate.html">
+   Analyzing US Real Interest Rate From 1959 - 2009 with statsmodels
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-30-NLP%20with%20Pyspark.html">
+   NLP with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-19-Pyspark-Filtering.html">
+   Dataframe Filitering and Operations with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-28-PCA-with-sklearn.html">
+   Principal component analysis with sklearn
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-20-Dask-Diab.html">
+   Dask for Predicting Onset/Diagnosis of Chronic Conditions, Diabetes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-17-dask-NLP-gutenberg-books.html">
+   Using Dask with dask.bag and regex to parse Notes from the Underground from project gutenberg
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-17-dask-NLP-gutenberg-books.html#removing-stop-words-in-top-word-frequency-counts">
+   Removing stop words in top word frequency counts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-30-StockMarketPortfolioAnaylsis_snp.html">
+   Stock Market and Portfolio Anaylsis of the S&amp;P 500 with pandas and quandl
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-10-Dask_Fiscal-db-to-dask-dataframe.html">
+   Working with dask data frames. Reading Fiscal Data from a sqlite db to a dask dataframe. Computing, visualizing and groupby with dask dataframes. Using dask.distributed locally.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-20-Pyspark-Dataframes-Data-Types.html">
+   Dataframes, Formatting, Casting Data Type and Correlation with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-13-dask-xgboost-fiscal-data.html">
+   Moving Dask XGboost with Fiscal Data, saving and loading Dask XGboost models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-12-dask-xgboost-fiscal-data..html">
+   Visualizing Operations with Dask Dataframes on Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-01-StockMarketPortfolioAnaylsis_snp%2B.html">
+   Stock Market and Portfolio Anaylsis of the S&amp;P 500 various metrics with pandas and quandl
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-25-Linear%20Regression%20and%20Random%20Forest_GBT%20Classification%20with%20Pyspark.html">
+   Regression and Classification with Pyspark ML
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-16-pandas-stats-fiscal.html">
+   Using Pandas and Statsmodels for Regression with Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Stock Market and Optimal Portfolio Anaylsis scipy and quandl
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-18-Pyspark-NAs.html">
+   Handling Missing Data with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-29-pyquery_for_ebooks_python.html">
+   Creating E-Books (.epub) in python using ebooklib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-09-dask-sql.html">
+   Using Dask and dask-sql
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-15-Pyspark-Fiscal-Data-Regression.html">
+   Pyspark Regression with Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-02-NLP_Ngram.html">
+   NLP ngrams With Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-22-Linear%20Regression%20and%20Random%20Forest_GBT%20Classification%20with%20Pyspark.html">
+   Regression and Classification with Pyspark ML
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-16-automl-capabilities-of-h2o-library.html">
+   AutoML, Xgboost and H2O
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-21-quant_data_datareader_quandl.html">
+   Using the Quandl API and Pandas Datareader API to call Microsoft, Apple, Zoom, Snowflake stocks and other finance data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-12-dask-xgboost-fiscal-data.html">
+   Visualizing Operations with Dask Dataframes on Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="bibliography.html">
+   Bibliography for Hands On Data Science at Scale with PySpark, Dask and H2O.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="building_book.html">
+   Creating the book:
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-10-Dask-api-eda.html">
+   Dask API for analytics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-31-sql_calls_in_jupyter_Soccer_explore.html">
+   Working with sqlite databases in Jupyter for Visualizing European Soccer Match Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-14-dask-xgboost-HT-OHE.html">
+   Using dask_ml.preprocessing and OneHotEncoder for categorical encoding with Dask
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-05-StockMarketPortfolioAnaylsis_snp_pandas_datareader_sqlite-Copy1.html">
+   Using sqlalchemy and pandas to read and write from and to a local sqlite database for Stock Market and Portfolio Anaylsis Tech Stocks and the S&amp;P 500 in 2020
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="toc.html">
+   Table of Contents for Data Science at Scale
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-09-Dask_Fiscal-Data-Sqlite-db.html">
+   Moving fiscal data from a pandas dataframe to a sqlite local database
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-04-StockMarketPortfolioAnaylsis_snp_pandas_datareader_sqlite-Copy1.html">
+   Stock Market and Portfolio Anaylsis Tech Stocks and the S&amp;P 500 in 2020 with pandas_datareader and writing to at sqlite database
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-22-stock-market-returns.html">
+   Stock Market Analysis of Microsoft, Zoom, and Snowflake
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-25-AnalyzingSizeofArmedForces.html">
+   Analyzing Size of Armed Forces From 1947 - 1963 with statsmodels
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-30-Function-for-zillow-data-quandl-api.html">
+   Using quandl zillow api for Chicago and Evanston Home Sale Prices using ARIMA and EWMAs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-18-ttests-distributions-crosstabs.html">
+   Evaluating Distributions and generating experimental Crosstabs for the evaluation of Experiments
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-11-dask-xgboost-fiscal-data.html">
+   Moving Fiscal Data from a sqlite db to a dask dataframe
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-22-AnalyzingUSUnemployment.html">
+   Analyzing US Unemployment From 1959 - 2009 with statsmodels
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-19-StockMarketPortfolioAnaylsis.html">
+   Stock Market and Portfolio Anaylsis with pandas_datareader and quandl
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-23-AnalyzingUSInflation.html">
+   Analyzing US Inflation From 1959 - 2009 with statsmodels
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-28-databases_sqllite_sqlalchemy_27.html">
+   Creating and accessing SQL databases with python using sqlalchemy and sqlite3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="setup.html">
+   Setting Up Computing Enviroment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-07-Fiscal_data-sqlitedb-Copy1.html">
+   Using sqlalchemy and pandas to read and write from and to a local sqlite database for Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-06-NLP-sqlitedb.html">
+   Using sqlalchemy and pandas to read and write from and to a local sqlite database for NLP
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-17-diab_prediction_with_h2o.html">
+   Predicting Onset/Diagnosis of Chronic Conditions, Diabetes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-17-diab_prediction_with_h2o.html#national-institute-of-diabetes-and-digestive-and-kidney-diseases-https-www-niddk-nih-gov">
+   National Institute of Diabetes and Digestive and Kidney Diseases, https://www.niddk.nih.gov/
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Hands On Data Science at Scale with PySpark, Dask and H2O.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-26-Working_with_sqlite3_dbs_in_jupyter_Soccer_Pred.html">
+   Working with sqlite databases in Jupyter for European Soccer Match Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-16-dask-NLP-gutenberg-books.html">
+   Using Dask with dask.bag and regex to parse The Brothers Karamazov from project gutenberg
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-16-dask-NLP-gutenberg-books.html#removing-stop-words-in-top-word-frequency-counts">
+   Removing stop words in top word frequency counts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-02-databases_sqllite_sqlalchemy_27-Copy1.html">
+   Creating and accessing SQL databases with python using sqlalchemy and sqlite
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="git_setup.html">
+   Setting up Version Control/Git Configuration:
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-15-dask-xgboost-Linear-Regresion-Copy1.html">
+   Linear Regression using Dask Data Frames
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-08-Dask-Day-1.html">
+   Using Dask for Arrays
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-03-NLP_Seaborn_Heatmaps.html">
+   NLP Heatmaps with Seaborn
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-21-RDDs%20and%20Schemas%20and%20Data%20Types%20with%20Pyspark.html">
+   RDDs and Schemas and Data Types with Pyspark
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/2020-09-21-StockMarketPortfolioAnaylsis2.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/2020-09-21-StockMarketPortfolioAnaylsis2.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="stock-market-and-optimal-portfolio-anaylsis-scipy-and-quandl">
+<h1>Stock Market and Optimal Portfolio Anaylsis scipy and quandl<a class="headerlink" href="#stock-market-and-optimal-portfolio-anaylsis-scipy-and-quandl" title="Permalink to this headline">¶</a></h1>
+<p>This post includes code adapted from <a class="reference external" href="https://udemy.com/python-for-finance-and-trading-algorithms/">python for finance and trading algorithms udemy course</a> and <a class="reference external" href="https://github.com/theoneandonlywoj/Python-for-Financial-Analysis-and-Algorithmic-Trading">python for finance and trading algorithms udemy course notebooks</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">quandl</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s1">&#39;2010-01-01&#39;</span><span class="p">)</span>
+<span class="n">end</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s1">&#39;today&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Grabbing a bunch of tech stocks for our portfolio</span>
+<span class="n">COST</span> <span class="o">=</span> <span class="n">quandl</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;WIKI/COST.11&#39;</span><span class="p">,</span>
+                  <span class="n">start_date</span> <span class="o">=</span> <span class="n">start</span><span class="p">,</span>
+                  <span class="n">end_date</span> <span class="o">=</span> <span class="n">end</span><span class="p">)</span>
+<span class="n">NLSN</span> <span class="o">=</span> <span class="n">quandl</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;WIKI/NLSN.11&#39;</span><span class="p">,</span>
+                   <span class="n">start_date</span> <span class="o">=</span> <span class="n">start</span><span class="p">,</span>
+                   <span class="n">end_date</span> <span class="o">=</span> <span class="n">end</span><span class="p">)</span>
+<span class="n">NKE</span> <span class="o">=</span> <span class="n">quandl</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;WIKI/NKE.11&#39;</span><span class="p">,</span>
+                 <span class="n">start_date</span> <span class="o">=</span> <span class="n">start</span><span class="p">,</span>
+                 <span class="n">end_date</span> <span class="o">=</span> <span class="n">end</span><span class="p">)</span>
+<span class="n">DIS</span> <span class="o">=</span> <span class="n">quandl</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;WIKI/DIS.11&#39;</span><span class="p">,</span>
+                  <span class="n">start_date</span> <span class="o">=</span> <span class="n">start</span><span class="p">,</span>
+                  <span class="n">end_date</span> <span class="o">=</span> <span class="n">end</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stocks</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">COST</span><span class="p">,</span> <span class="n">NLSN</span><span class="p">,</span> <span class="n">NKE</span><span class="p">,</span> <span class="n">DIS</span><span class="p">],</span>
+                   <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">stocks</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;COST&#39;</span><span class="p">,</span><span class="s1">&#39;NLSN&#39;</span><span class="p">,</span><span class="s1">&#39;NKE&#39;</span><span class="p">,</span><span class="s1">&#39;DIS&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stocks</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COST</th>
+      <th>NLSN</th>
+      <th>NKE</th>
+      <th>DIS</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-04</th>
+      <td>49.085078</td>
+      <td>NaN</td>
+      <td>14.751122</td>
+      <td>28.960651</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>48.936361</td>
+      <td>NaN</td>
+      <td>14.809811</td>
+      <td>28.888407</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>49.572542</td>
+      <td>NaN</td>
+      <td>14.719521</td>
+      <td>28.734890</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>49.332941</td>
+      <td>NaN</td>
+      <td>14.863985</td>
+      <td>28.743920</td>
+    </tr>
+    <tr>
+      <th>2010-01-08</th>
+      <td>48.977671</td>
+      <td>NaN</td>
+      <td>14.834641</td>
+      <td>28.789072</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2018-03-21</th>
+      <td>186.070000</td>
+      <td>32.44</td>
+      <td>66.350000</td>
+      <td>101.820000</td>
+    </tr>
+    <tr>
+      <th>2018-03-22</th>
+      <td>182.640000</td>
+      <td>31.82</td>
+      <td>64.420000</td>
+      <td>100.600000</td>
+    </tr>
+    <tr>
+      <th>2018-03-23</th>
+      <td>180.840000</td>
+      <td>31.51</td>
+      <td>64.630000</td>
+      <td>98.540000</td>
+    </tr>
+    <tr>
+      <th>2018-03-26</th>
+      <td>187.220000</td>
+      <td>32.03</td>
+      <td>65.900000</td>
+      <td>100.650000</td>
+    </tr>
+    <tr>
+      <th>2018-03-27</th>
+      <td>183.150000</td>
+      <td>32.09</td>
+      <td>66.170000</td>
+      <td>99.360000</td>
+    </tr>
+  </tbody>
+</table>
+<p>2071 rows × 4 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_daily_ret</span> <span class="o">=</span> <span class="n">stocks</span><span class="o">.</span><span class="n">pct_change</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">mean_daily_ret</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>COST    0.000699
+NLSN    0.000312
+NKE     0.000833
+DIS     0.000683
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stocks</span><span class="o">.</span><span class="n">pct_change</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COST</th>
+      <th>NLSN</th>
+      <th>NKE</th>
+      <th>DIS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>COST</th>
+      <td>1.000000</td>
+      <td>0.265003</td>
+      <td>0.370978</td>
+      <td>0.415377</td>
+    </tr>
+    <tr>
+      <th>NLSN</th>
+      <td>0.265003</td>
+      <td>1.000000</td>
+      <td>0.312192</td>
+      <td>0.392808</td>
+    </tr>
+    <tr>
+      <th>NKE</th>
+      <td>0.370978</td>
+      <td>0.312192</td>
+      <td>1.000000</td>
+      <td>0.446150</td>
+    </tr>
+    <tr>
+      <th>DIS</th>
+      <td>0.415377</td>
+      <td>0.392808</td>
+      <td>0.446150</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stocks</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COST</th>
+      <th>NLSN</th>
+      <th>NKE</th>
+      <th>DIS</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-04</th>
+      <td>49.085078</td>
+      <td>NaN</td>
+      <td>14.751122</td>
+      <td>28.960651</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>48.936361</td>
+      <td>NaN</td>
+      <td>14.809811</td>
+      <td>28.888407</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>49.572542</td>
+      <td>NaN</td>
+      <td>14.719521</td>
+      <td>28.734890</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>49.332941</td>
+      <td>NaN</td>
+      <td>14.863985</td>
+      <td>28.743920</td>
+    </tr>
+    <tr>
+      <th>2010-01-08</th>
+      <td>48.977671</td>
+      <td>NaN</td>
+      <td>14.834641</td>
+      <td>28.789072</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stock_normed</span> <span class="o">=</span> <span class="n">stocks</span><span class="o">/</span><span class="n">stocks</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">stock_normed</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;Date&#39;&gt;
+</pre></div>
+</div>
+<img alt="_images/2020-09-21-StockMarketPortfolioAnaylsis2_10_1.png" src="_images/2020-09-21-StockMarketPortfolioAnaylsis2_10_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stock_daily_ret</span> <span class="o">=</span> <span class="n">stocks</span><span class="o">.</span><span class="n">pct_change</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">stock_daily_ret</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COST</th>
+      <th>NLSN</th>
+      <th>NKE</th>
+      <th>DIS</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-04</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>-0.003030</td>
+      <td>NaN</td>
+      <td>0.003979</td>
+      <td>-0.002495</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>0.013000</td>
+      <td>NaN</td>
+      <td>-0.006097</td>
+      <td>-0.005314</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>-0.004833</td>
+      <td>NaN</td>
+      <td>0.009814</td>
+      <td>0.000314</td>
+    </tr>
+    <tr>
+      <th>2010-01-08</th>
+      <td>-0.007201</td>
+      <td>NaN</td>
+      <td>-0.001974</td>
+      <td>0.001571</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">log_ret</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">stocks</span> <span class="o">/</span> <span class="n">stocks</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">log_ret</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COST</th>
+      <th>NLSN</th>
+      <th>NKE</th>
+      <th>DIS</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-04</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>-0.003034</td>
+      <td>NaN</td>
+      <td>0.003971</td>
+      <td>-0.002498</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>0.012916</td>
+      <td>NaN</td>
+      <td>-0.006115</td>
+      <td>-0.005328</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>-0.004845</td>
+      <td>NaN</td>
+      <td>0.009767</td>
+      <td>0.000314</td>
+    </tr>
+    <tr>
+      <th>2010-01-08</th>
+      <td>-0.007228</td>
+      <td>NaN</td>
+      <td>-0.001976</td>
+      <td>0.001570</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">log_ret</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+             <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">));</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2020-09-21-StockMarketPortfolioAnaylsis2_14_0.png" src="_images/2020-09-21-StockMarketPortfolioAnaylsis2_14_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">log_ret</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>COST</th>
+      <td>2068.0</td>
+      <td>0.000633</td>
+      <td>0.011172</td>
+      <td>-0.083110</td>
+      <td>-0.005293</td>
+      <td>0.000413</td>
+      <td>0.006618</td>
+      <td>0.060996</td>
+    </tr>
+    <tr>
+      <th>NLSN</th>
+      <td>1801.0</td>
+      <td>0.000198</td>
+      <td>0.015121</td>
+      <td>-0.185056</td>
+      <td>-0.007131</td>
+      <td>0.000000</td>
+      <td>0.008051</td>
+      <td>0.095201</td>
+    </tr>
+    <tr>
+      <th>NKE</th>
+      <td>2070.0</td>
+      <td>0.000725</td>
+      <td>0.014682</td>
+      <td>-0.098743</td>
+      <td>-0.006602</td>
+      <td>0.000656</td>
+      <td>0.008155</td>
+      <td>0.115342</td>
+    </tr>
+    <tr>
+      <th>DIS</th>
+      <td>2070.0</td>
+      <td>0.000596</td>
+      <td>0.013220</td>
+      <td>-0.096190</td>
+      <td>-0.005710</td>
+      <td>0.000776</td>
+      <td>0.007453</td>
+      <td>0.073531</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">log_ret</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">252</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>COST    0.159439
+NLSN    0.049979
+NKE     0.182719
+DIS     0.150081
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute pairwise covariance of columns</span>
+<span class="n">log_ret</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>COST</th>
+      <th>NLSN</th>
+      <th>NKE</th>
+      <th>DIS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>COST</th>
+      <td>0.000125</td>
+      <td>0.000045</td>
+      <td>0.000061</td>
+      <td>0.000061</td>
+    </tr>
+    <tr>
+      <th>NLSN</th>
+      <td>0.000045</td>
+      <td>0.000229</td>
+      <td>0.000070</td>
+      <td>0.000077</td>
+    </tr>
+    <tr>
+      <th>NKE</th>
+      <td>0.000061</td>
+      <td>0.000070</td>
+      <td>0.000216</td>
+      <td>0.000087</td>
+    </tr>
+    <tr>
+      <th>DIS</th>
+      <td>0.000061</td>
+      <td>0.000077</td>
+      <td>0.000087</td>
+      <td>0.000175</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set seed (optional)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">101</span><span class="p">)</span>
+
+<span class="c1"># Stock Columns</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Stocks&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stocks</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># Create Random Weights</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Creating Random Weights&#39;</span><span class="p">)</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># Rebalance Weights</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Rebalance to sum to 1.0&#39;</span><span class="p">)</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="n">weights</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># Expected Return</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Expected Portfolio Return&#39;</span><span class="p">)</span>
+<span class="n">exp_ret</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">log_ret</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="n">weights</span><span class="p">)</span> <span class="o">*</span><span class="mi">252</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">exp_ret</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># Expected Variance</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Expected Volatility&#39;</span><span class="p">)</span>
+<span class="n">exp_vol</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">log_ret</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span> <span class="o">*</span> <span class="mi">252</span><span class="p">,</span> <span class="n">weights</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">exp_vol</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># Sharpe Ratio</span>
+<span class="n">SR</span> <span class="o">=</span> <span class="n">exp_ret</span><span class="o">/</span><span class="n">exp_vol</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sharpe Ratio&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">SR</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Stocks
+Index([&#39;COST&#39;, &#39;NLSN&#39;, &#39;NKE&#39;, &#39;DIS&#39;], dtype=&#39;object&#39;)
+
+
+Creating Random Weights
+[0.51639863 0.57066759 0.02847423 0.17152166]
+
+
+Rebalance to sum to 1.0
+[0.40122278 0.44338777 0.02212343 0.13326603]
+
+
+Expected Portfolio Return
+0.11017373023155777
+
+
+Expected Volatility
+0.16110487214223854
+
+
+Sharpe Ratio
+0.6838634286260817
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_ports</span> <span class="o">=</span> <span class="mi">15000</span>
+
+<span class="n">all_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_ports</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">stocks</span><span class="o">.</span><span class="n">columns</span><span class="p">)))</span>
+<span class="n">ret_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_ports</span><span class="p">)</span>
+<span class="n">vol_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_ports</span><span class="p">)</span>
+<span class="n">sharpe_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_ports</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_ports</span><span class="p">):</span>
+
+    <span class="c1"># Create Random Weights</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+
+    <span class="c1"># Rebalance Weights</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">weights</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+    
+    <span class="c1"># Save Weights</span>
+    <span class="n">all_weights</span><span class="p">[</span><span class="n">ind</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">weights</span>
+
+    <span class="c1"># Expected Return</span>
+    <span class="n">ret_arr</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">log_ret</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="n">weights</span><span class="p">)</span> <span class="o">*</span><span class="mi">252</span><span class="p">)</span>
+
+    <span class="c1"># Expected Variance</span>
+    <span class="n">vol_arr</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">log_ret</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span> <span class="o">*</span> <span class="mi">252</span><span class="p">,</span> <span class="n">weights</span><span class="p">)))</span>
+
+    <span class="c1"># Sharpe Ratio</span>
+    <span class="n">sharpe_arr</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">ret_arr</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">/</span> <span class="n">vol_arr</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sharpe_arr</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.042687299617254
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sharpe_arr</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10619
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_weights</span><span class="p">[</span><span class="mi">10619</span><span class="p">,:]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([5.06395348e-01, 4.67772019e-04, 2.64242193e-01, 2.28894687e-01])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">max_sr_ret</span> <span class="o">=</span> <span class="n">ret_arr</span><span class="p">[</span><span class="mi">1419</span><span class="p">]</span>
+<span class="n">max_sr_vol</span> <span class="o">=</span> <span class="n">vol_arr</span><span class="p">[</span><span class="mi">1419</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">vol_arr</span><span class="p">,</span>
+            <span class="n">ret_arr</span><span class="p">,</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="n">sharpe_arr</span><span class="p">,</span>
+            <span class="n">cmap</span> <span class="o">=</span> <span class="s1">&#39;plasma&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Sharpe Ratio&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Volatility&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Return&#39;</span><span class="p">)</span>
+
+<span class="c1"># Add red dot for max SR</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">max_sr_vol</span><span class="p">,</span>
+            <span class="n">max_sr_ret</span><span class="p">,</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
+            <span class="n">edgecolors</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7f703b26fd00&gt;
+</pre></div>
+</div>
+<img alt="_images/2020-09-21-StockMarketPortfolioAnaylsis2_25_1.png" src="_images/2020-09-21-StockMarketPortfolioAnaylsis2_25_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_ret_vol_sr</span><span class="p">(</span><span class="n">weights</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes in weights, returns array or return,volatility, sharpe ratio</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">log_ret</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="n">weights</span><span class="p">)</span> <span class="o">*</span> <span class="mi">252</span>
+    <span class="n">vol</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">log_ret</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span> <span class="o">*</span> <span class="mi">252</span><span class="p">,</span> <span class="n">weights</span><span class="p">)))</span>
+    <span class="n">sr</span> <span class="o">=</span> <span class="n">ret</span><span class="o">/</span><span class="n">vol</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">ret</span><span class="p">,</span> <span class="n">vol</span><span class="p">,</span> <span class="n">sr</span><span class="p">])</span>
+
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">neg_sharpe</span><span class="p">(</span><span class="n">weights</span><span class="p">):</span>
+    <span class="k">return</span>  <span class="n">get_ret_vol_sr</span><span class="p">(</span><span class="n">weights</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span>
+
+<span class="c1"># Contraints</span>
+<span class="k">def</span> <span class="nf">check_sum</span><span class="p">(</span><span class="n">weights</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns 0 if sum of weights is 1.0</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+
+<span class="c1"># By convention of minimize function it should be a function that returns zero for conditions</span>
+<span class="n">cons</span> <span class="o">=</span> <span class="p">({</span><span class="s1">&#39;type&#39;</span> <span class="p">:</span> <span class="s1">&#39;eq&#39;</span><span class="p">,</span> <span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="n">check_sum</span><span class="p">})</span>
+
+<span class="c1"># 0-1 bounds for each weight</span>
+<span class="n">bounds</span> <span class="o">=</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># Initial Guess (equal distribution)</span>
+<span class="n">init_guess</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">]</span>
+
+<span class="c1"># Sequential Least Squares </span>
+<span class="n">opt_results</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">neg_sharpe</span><span class="p">,</span>
+                       <span class="n">init_guess</span><span class="p">,</span>
+                       <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;SLSQP&#39;</span><span class="p">,</span>
+                       <span class="n">bounds</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">,</span>
+                       <span class="n">constraints</span> <span class="o">=</span> <span class="n">cons</span><span class="p">)</span>
+
+<span class="n">opt_results</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: -1.0442236428192482
+     jac: array([-1.85623765e-04,  3.00063133e-01,  3.43203545e-04,  1.72853470e-05])
+ message: &#39;Optimization terminated successfully&#39;
+    nfev: 20
+     nit: 4
+    njev: 4
+  status: 0
+ success: True
+       x: array([0.53438392, 0.        , 0.27969302, 0.18592306])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">opt_results</span><span class="o">.</span><span class="n">x</span>
+
+<span class="n">get_ret_vol_sr</span><span class="p">(</span><span class="n">opt_results</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.16421049, 0.15725605, 1.04422364])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">frontier_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">minimize_volatility</span><span class="p">(</span><span class="n">weights</span><span class="p">):</span>
+    <span class="k">return</span>  <span class="n">get_ret_vol_sr</span><span class="p">(</span><span class="n">weights</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> 
+
+<span class="n">frontier_volatility</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">possible_return</span> <span class="ow">in</span> <span class="n">frontier_y</span><span class="p">:</span>
+    <span class="c1"># function for return</span>
+    <span class="n">cons</span> <span class="o">=</span> <span class="p">({</span><span class="s1">&#39;type&#39;</span><span class="p">:</span><span class="s1">&#39;eq&#39;</span><span class="p">,</span><span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="n">check_sum</span><span class="p">},</span>
+            <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span><span class="s1">&#39;eq&#39;</span><span class="p">,</span><span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">w</span><span class="p">:</span> <span class="n">get_ret_vol_sr</span><span class="p">(</span><span class="n">w</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">possible_return</span><span class="p">})</span>
+    
+    <span class="n">result</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">minimize_volatility</span><span class="p">,</span>
+                      <span class="n">init_guess</span><span class="p">,</span>
+                      <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;SLSQP&#39;</span><span class="p">,</span>
+                      <span class="n">bounds</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">,</span>
+                      <span class="n">constraints</span> <span class="o">=</span> <span class="n">cons</span><span class="p">)</span>
+    
+    <span class="n">frontier_volatility</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;fun&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">vol_arr</span><span class="p">,</span>
+            <span class="n">ret_arr</span><span class="p">,</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="n">sharpe_arr</span><span class="p">,</span>
+            <span class="n">cmap</span> <span class="o">=</span> <span class="s1">&#39;plasma&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Sharpe Ratio&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Volatility&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Return&#39;</span><span class="p">)</span>
+
+
+
+<span class="c1"># Add frontier line</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">frontier_volatility</span><span class="p">,</span>
+         <span class="n">frontier_y</span><span class="p">,</span>
+         <span class="s1">&#39;g--&#39;</span><span class="p">,</span>
+         <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f703b1949a0&gt;]
+</pre></div>
+</div>
+<img alt="_images/2020-09-21-StockMarketPortfolioAnaylsis2_31_1.png" src="_images/2020-09-21-StockMarketPortfolioAnaylsis2_31_1.png" />
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="2020-08-16-pandas-stats-fiscal.html" title="previous page">Using Pandas and Statsmodels for Regression with Fiscal Data</a>
+    <a class='right-next' id="next-link" href="2020-08-18-Pyspark-NAs.html" title="next page">Handling Missing Data with Pyspark</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By David Kearney<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

@@ -1,0 +1,1796 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Regression and Classification with Pyspark ML &#8212; Hands On Data Science at Scale with PySpark, Dask and H2O.</title>
+    
+  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Using Pandas and Statsmodels for Regression with Fiscal Data" href="2020-08-16-pandas-stats-fiscal.html" />
+    <link rel="prev" title="Stock Market and Portfolio Anaylsis of the S&amp;P 500 various metrics with pandas and quandl" href="2020-10-01-StockMarketPortfolioAnaylsis_snp%2B.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Hands On Data Science at Scale with PySpark, Dask and H2O.</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-25-ARIMA-ADF-FORECASTING.html">
+   Stock Market Analysis of the S&amp;P 500 Index using ARIMA and Seasonal ARIMA for forecasting
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-17-Pyspark-Group-By.html">
+   Group By and Aggregation with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-22-Window%20functions%20and%20Pivot%20Tables%20with%20Pyspark.html">
+   Window functions and Pivot Tables with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-29-Clustering%20with%20Pyspark.html">
+   Clustering with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-27-sql_calls_in_jupyter_Soccer_Pred.html">
+   Working with sqlite databases in Jupyter for Visualizing European Soccer Match Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-19-ttests-distributions-crosstabs-functions.html">
+   Evaluating Distributions and generating Experimental Crosstabs for the Evaluation of Experiments as well as Experimental Comparisons with T-Tests, Purpose Assumptions, Corrections and Implementations in Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-24-AnalyzingUSRealInterestRate.html">
+   Analyzing US Real Interest Rate From 1959 - 2009 with statsmodels
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-30-NLP%20with%20Pyspark.html">
+   NLP with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-19-Pyspark-Filtering.html">
+   Dataframe Filitering and Operations with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-28-PCA-with-sklearn.html">
+   Principal component analysis with sklearn
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-20-Dask-Diab.html">
+   Dask for Predicting Onset/Diagnosis of Chronic Conditions, Diabetes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-17-dask-NLP-gutenberg-books.html">
+   Using Dask with dask.bag and regex to parse Notes from the Underground from project gutenberg
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-17-dask-NLP-gutenberg-books.html#removing-stop-words-in-top-word-frequency-counts">
+   Removing stop words in top word frequency counts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-30-StockMarketPortfolioAnaylsis_snp.html">
+   Stock Market and Portfolio Anaylsis of the S&amp;P 500 with pandas and quandl
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-10-Dask_Fiscal-db-to-dask-dataframe.html">
+   Working with dask data frames. Reading Fiscal Data from a sqlite db to a dask dataframe. Computing, visualizing and groupby with dask dataframes. Using dask.distributed locally.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-20-Pyspark-Dataframes-Data-Types.html">
+   Dataframes, Formatting, Casting Data Type and Correlation with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-13-dask-xgboost-fiscal-data.html">
+   Moving Dask XGboost with Fiscal Data, saving and loading Dask XGboost models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-12-dask-xgboost-fiscal-data..html">
+   Visualizing Operations with Dask Dataframes on Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-01-StockMarketPortfolioAnaylsis_snp%2B.html">
+   Stock Market and Portfolio Anaylsis of the S&amp;P 500 various metrics with pandas and quandl
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Regression and Classification with Pyspark ML
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-16-pandas-stats-fiscal.html">
+   Using Pandas and Statsmodels for Regression with Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-21-StockMarketPortfolioAnaylsis2.html">
+   Stock Market and Optimal Portfolio Anaylsis scipy and quandl
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-18-Pyspark-NAs.html">
+   Handling Missing Data with Pyspark
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-29-pyquery_for_ebooks_python.html">
+   Creating E-Books (.epub) in python using ebooklib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-09-dask-sql.html">
+   Using Dask and dask-sql
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-15-Pyspark-Fiscal-Data-Regression.html">
+   Pyspark Regression with Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-02-NLP_Ngram.html">
+   NLP ngrams With Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-22-Linear%20Regression%20and%20Random%20Forest_GBT%20Classification%20with%20Pyspark.html">
+   Regression and Classification with Pyspark ML
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-16-automl-capabilities-of-h2o-library.html">
+   AutoML, Xgboost and H2O
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-21-quant_data_datareader_quandl.html">
+   Using the Quandl API and Pandas Datareader API to call Microsoft, Apple, Zoom, Snowflake stocks and other finance data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-12-dask-xgboost-fiscal-data.html">
+   Visualizing Operations with Dask Dataframes on Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="bibliography.html">
+   Bibliography for Hands On Data Science at Scale with PySpark, Dask and H2O.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="building_book.html">
+   Creating the book:
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-10-Dask-api-eda.html">
+   Dask API for analytics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-31-sql_calls_in_jupyter_Soccer_explore.html">
+   Working with sqlite databases in Jupyter for Visualizing European Soccer Match Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-14-dask-xgboost-HT-OHE.html">
+   Using dask_ml.preprocessing and OneHotEncoder for categorical encoding with Dask
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-05-StockMarketPortfolioAnaylsis_snp_pandas_datareader_sqlite-Copy1.html">
+   Using sqlalchemy and pandas to read and write from and to a local sqlite database for Stock Market and Portfolio Anaylsis Tech Stocks and the S&amp;P 500 in 2020
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="toc.html">
+   Table of Contents for Data Science at Scale
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-09-Dask_Fiscal-Data-Sqlite-db.html">
+   Moving fiscal data from a pandas dataframe to a sqlite local database
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-04-StockMarketPortfolioAnaylsis_snp_pandas_datareader_sqlite-Copy1.html">
+   Stock Market and Portfolio Anaylsis Tech Stocks and the S&amp;P 500 in 2020 with pandas_datareader and writing to at sqlite database
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-22-stock-market-returns.html">
+   Stock Market Analysis of Microsoft, Zoom, and Snowflake
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-25-AnalyzingSizeofArmedForces.html">
+   Analyzing Size of Armed Forces From 1947 - 1963 with statsmodels
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-30-Function-for-zillow-data-quandl-api.html">
+   Using quandl zillow api for Chicago and Evanston Home Sale Prices using ARIMA and EWMAs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-18-ttests-distributions-crosstabs.html">
+   Evaluating Distributions and generating experimental Crosstabs for the evaluation of Experiments
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-11-dask-xgboost-fiscal-data.html">
+   Moving Fiscal Data from a sqlite db to a dask dataframe
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-22-AnalyzingUSUnemployment.html">
+   Analyzing US Unemployment From 1959 - 2009 with statsmodels
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-19-StockMarketPortfolioAnaylsis.html">
+   Stock Market and Portfolio Anaylsis with pandas_datareader and quandl
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-23-AnalyzingUSInflation.html">
+   Analyzing US Inflation From 1959 - 2009 with statsmodels
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-28-databases_sqllite_sqlalchemy_27.html">
+   Creating and accessing SQL databases with python using sqlalchemy and sqlite3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="setup.html">
+   Setting Up Computing Enviroment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-07-Fiscal_data-sqlitedb-Copy1.html">
+   Using sqlalchemy and pandas to read and write from and to a local sqlite database for Fiscal Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-06-NLP-sqlitedb.html">
+   Using sqlalchemy and pandas to read and write from and to a local sqlite database for NLP
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-17-diab_prediction_with_h2o.html">
+   Predicting Onset/Diagnosis of Chronic Conditions, Diabetes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-11-17-diab_prediction_with_h2o.html#national-institute-of-diabetes-and-digestive-and-kidney-diseases-https-www-niddk-nih-gov">
+   National Institute of Diabetes and Digestive and Kidney Diseases, https://www.niddk.nih.gov/
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Hands On Data Science at Scale with PySpark, Dask and H2O.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-26-Working_with_sqlite3_dbs_in_jupyter_Soccer_Pred.html">
+   Working with sqlite databases in Jupyter for European Soccer Match Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-16-dask-NLP-gutenberg-books.html">
+   Using Dask with dask.bag and regex to parse The Brothers Karamazov from project gutenberg
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-16-dask-NLP-gutenberg-books.html#removing-stop-words-in-top-word-frequency-counts">
+   Removing stop words in top word frequency counts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-02-databases_sqllite_sqlalchemy_27-Copy1.html">
+   Creating and accessing SQL databases with python using sqlalchemy and sqlite
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="git_setup.html">
+   Setting up Version Control/Git Configuration:
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-15-dask-xgboost-Linear-Regresion-Copy1.html">
+   Linear Regression using Dask Data Frames
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-10-08-Dask-Day-1.html">
+   Using Dask for Arrays
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-09-03-NLP_Seaborn_Heatmaps.html">
+   NLP Heatmaps with Seaborn
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2020-08-21-RDDs%20and%20Schemas%20and%20Data%20Types%20with%20Pyspark.html">
+   RDDs and Schemas and Data Types with Pyspark
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/2020-08-25-Linear Regression and Random Forest_GBT Classification with Pyspark.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/2020-08-25-Linear Regression and Random Forest_GBT Classification with Pyspark.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#linear-regression-and-random-forest-gbt-classification-with-pyspark">
+   Linear Regression and Random Forest/GBT Classification with Pyspark
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#imputation-of-mean-values-to-prepare-the-data">
+   Imputation of mean values to prepare the data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#creating-binary-target-feature-from-extant-column-for-classification">
+   Creating binary target feature from extant column for classification
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-stringindexer-for-categorical-encoding-of-string-type-columns">
+   Using StringIndexer for categorical encoding of string type columns
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-vectorassembler-to-prepare-features-for-machine-learning">
+   Using VectorAssembler to prepare features for machine learning
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#spliting-data-into-train-and-test">
+   Spliting data into train and test
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#regression-with-pyspark-ml">
+   Regression with Pyspark ML
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fitting-the-linear-regression-model-to-the-training-data">
+   Fitting the linear regression model to the training data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#coefficients-and-intercept-of-the-linear-regression-model">
+   Coefficients and Intercept of the linear regression model
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#evaluating-trained-linear-regression-model-on-the-test-data">
+   Evaluating trained linear regression model on the test data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#metrics-of-trained-linear-regression-model-on-the-test-data-rmse-mse-r2">
+   Metrics of trained linear regression model on the test data (RMSE, MSE, R2)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#looking-at-correlations-with-corr">
+   Looking at correlations with corr
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#classification-with-pyspark-ml">
+   Classification with Pyspark ML
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#decisiontreeclassifier-randomforestclassifier-and-gbtclassifier">
+   DecisionTreeClassifier, RandomForestClassifier and GBTClassifier
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#selecting-features-and-binary-target">
+   Selecting features and binary target
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fitting-the-classifiers-to-the-training-data">
+   Fitting the Classifiers to the Training Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#classifier-predictions-on-test-data">
+   Classifier predictions on test data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#evaluating-classifiers-using-pyspark-ml-evaluation-and-multiclassclassificationevaluator">
+   Evaluating Classifiers using pyspark.ml.evaluation and MulticlassClassificationEvaluator
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#classifier-accuracy">
+     Classifier Accuracy
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#classifier-accuracy-metrics">
+   Classifier Accuracy Metrics
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#classification-correlation-with-corr">
+   Classification Correlation with Corr
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="regression-and-classification-with-pyspark-ml">
+<h1>Regression and Classification with Pyspark ML<a class="headerlink" href="#regression-and-classification-with-pyspark-ml" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="linear-regression-and-random-forest-gbt-classification-with-pyspark">
+<h2>Linear Regression and Random Forest/GBT Classification with Pyspark<a class="headerlink" href="#linear-regression-and-random-forest-gbt-classification-with-pyspark" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="kn">import</span> <span class="n">SparkSession</span>
+<span class="kn">from</span> <span class="nn">pyspark.sql.types</span> <span class="kn">import</span> <span class="n">StructField</span><span class="p">,</span><span class="n">StringType</span><span class="p">,</span><span class="n">IntegerType</span><span class="p">,</span><span class="n">StructType</span><span class="p">,</span> <span class="n">DoubleType</span><span class="p">,</span> <span class="n">FloatType</span>
+<span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">data_schema</span> <span class="o">=</span> <span class="p">[</span>
+<span class="n">StructField</span><span class="p">(</span><span class="s2">&quot;_c0&quot;</span><span class="p">,</span> <span class="n">IntegerType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">)</span>
+<span class="p">,</span><span class="n">StructField</span><span class="p">(</span><span class="s2">&quot;province&quot;</span><span class="p">,</span> <span class="n">StringType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">)</span>
+<span class="p">,</span><span class="n">StructField</span><span class="p">(</span><span class="s2">&quot;specific&quot;</span><span class="p">,</span> <span class="n">DoubleType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">)</span>
+<span class="p">,</span><span class="n">StructField</span><span class="p">(</span><span class="s2">&quot;general&quot;</span><span class="p">,</span> <span class="n">DoubleType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">)</span>
+<span class="p">,</span><span class="n">StructField</span><span class="p">(</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="n">IntegerType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">)</span>
+<span class="p">,</span><span class="n">StructField</span><span class="p">(</span><span class="s2">&quot;gdp&quot;</span><span class="p">,</span> <span class="n">FloatType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">)</span>
+<span class="p">,</span><span class="n">StructField</span><span class="p">(</span><span class="s2">&quot;fdi&quot;</span><span class="p">,</span> <span class="n">FloatType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">)</span>
+<span class="p">,</span><span class="n">StructField</span><span class="p">(</span><span class="s2">&quot;rnr&quot;</span><span class="p">,</span> <span class="n">DoubleType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">)</span>
+<span class="p">,</span><span class="n">StructField</span><span class="p">(</span><span class="s2">&quot;rr&quot;</span><span class="p">,</span> <span class="n">FloatType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">)</span>
+<span class="p">,</span><span class="n">StructField</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="n">FloatType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">)</span>
+<span class="p">,</span><span class="n">StructField</span><span class="p">(</span><span class="s2">&quot;fr&quot;</span><span class="p">,</span> <span class="n">IntegerType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">)</span>
+<span class="p">,</span><span class="n">StructField</span><span class="p">(</span><span class="s2">&quot;reg&quot;</span><span class="p">,</span> <span class="n">StringType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">)</span>
+<span class="p">,</span><span class="n">StructField</span><span class="p">(</span><span class="s2">&quot;it&quot;</span><span class="p">,</span> <span class="n">IntegerType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="n">final_struc</span> <span class="o">=</span> <span class="n">StructType</span><span class="p">(</span><span class="n">fields</span><span class="o">=</span><span class="n">data_schema</span><span class="p">)</span>
+
+<span class="n">file_location</span> <span class="o">=</span> <span class="s2">&quot;/FileStore/tables/df_panel_fix.csv&quot;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;CSV&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">schema</span><span class="p">(</span><span class="n">final_struc</span><span class="p">)</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;header&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file_location</span><span class="p">)</span>
+
+<span class="c1">#df.printSchema()</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout">+---+--------+---------+--------+----+-------+--------+----+---------+---------+-------+-----------+-------+
+_c0|province| specific| general|year|    gdp|     fdi| rnr|       rr|        i|     fr|        reg|     it|
++---+--------+---------+--------+----+-------+--------+----+---------+---------+-------+-----------+-------+
+  0|   Anhui| 147002.0|    null|1996| 2093.3| 50661.0| 0.0|      0.0|      0.0|1128873| East China| 631930|
+  1|   Anhui| 151981.0|    null|1997|2347.32| 43443.0| 0.0|      0.0|      0.0|1356287| East China| 657860|
+  2|   Anhui| 174930.0|    null|1998|2542.96| 27673.0| 0.0|      0.0|      0.0|1518236| East China| 889463|
+  3|   Anhui| 285324.0|    null|1999|2712.34| 26131.0|null|     null|     null|1646891| East China|1227364|
+  4|   Anhui| 195580.0| 32100.0|2000|2902.09| 31847.0| 0.0|      0.0|      0.0|1601508| East China|1499110|
+  5|   Anhui| 250898.0|    null|2001|3246.71| 33672.0| 0.0|      0.0|      0.0|1672445| East China|2165189|
+  6|   Anhui| 434149.0| 66529.0|2002|3519.72| 38375.0| 0.0|      0.0|      0.0|1677840| East China|2404936|
+  7|   Anhui| 619201.0| 52108.0|2003|3923.11| 36720.0| 0.0|      0.0|      0.0|1896479| East China|2815820|
+  8|   Anhui| 898441.0|349699.0|2004| 4759.3| 54669.0| 0.0|      0.0|      0.0|   null| East China|3422176|
+  9|   Anhui| 898441.0|    null|2005|5350.17| 69000.0| 0.0|      0.0|0.3243243|   null| East China|3874846|
+ 10|   Anhui|1457872.0|279052.0|2006| 6112.5|139354.0| 0.0|      0.0|0.3243243|3434548| East China|5167300|
+ 11|   Anhui|2213991.0|178705.0|2007|7360.92|299892.0| 0.0|      0.0|0.3243243|4468640| East China|7040099|
+ 12| Beijing| 165957.0|    null|1996| 1789.2|155290.0|null|     null|     null| 634562|North China| 508135|
+ 13| Beijing| 165957.0|    null|1997|2077.09|159286.0| 0.0|      0.0|      0.6| 634562|North China| 569283|
+ 14| Beijing| 245198.0|    null|1998|2377.18|216800.0| 0.0|      0.0|     0.53| 938788|North China| 695528|
+ 15| Beijing| 388083.0|    null|1999|2678.82|197525.0| 0.0|      0.0|     0.53|   null|North China| 944047|
+ 16| Beijing| 281769.0|188633.0|2000|3161.66|168368.0| 0.0|      0.0|     0.53|1667114|North China| 757990|
+ 17| Beijing| 441923.0|    null|2001|3707.96|176818.0| 0.0|      0.0|     0.53|2093925|North China|1194728|
+ 18| Beijing| 558569.0|280277.0|2002| 4315.0|172464.0| 0.0|      0.0|     0.53|2511249|North China|1078754|
+ 19| Beijing| 642581.0|269596.0|2003|5007.21|219126.0| 0.0|0.7948718|      0.0|2823366|North China|1426600|
++---+--------+---------+--------+----+-------+--------+----+---------+---------+-------+-----------+-------+
+only showing top 20 rows
+
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupBy</span><span class="p">(</span><span class="s1">&#39;province&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout">+------------+-----+
+    province|count|
++------------+-----+
+   Guangdong|   12|
+       Hunan|   12|
+      Shanxi|   12|
+       Tibet|   12|
+       Hubei|   12|
+     Tianjin|   12|
+     Beijing|   12|
+Heilongjiang|   12|
+    Liaoning|   12|
+       Henan|   12|
+       Anhui|   12|
+    Xinjiang|   12|
+      Fujian|   12|
+     Jiangxi|   12|
+       Jilin|   12|
+   Chongqing|   12|
+     Shaanxi|   12|
+     Sichuan|   12|
+      Yunnan|   12|
+       Gansu|   12|
++------------+-----+
+only showing top 20 rows
+
+</div></div></div>
+</div>
+</div>
+<div class="section" id="imputation-of-mean-values-to-prepare-the-data">
+<h2>Imputation of mean values to prepare the data<a class="headerlink" href="#imputation-of-mean-values-to-prepare-the-data" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mean_val</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">mean</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;general&#39;</span><span class="p">]))</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+<span class="n">mean_val</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">mean_gen</span> <span class="o">=</span> <span class="n">mean_val</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">na</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">mean_gen</span><span class="p">,[</span><span class="s2">&quot;general&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mean_val</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">mean</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;specific&#39;</span><span class="p">]))</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+<span class="n">mean_val</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">mean_gen</span> <span class="o">=</span> <span class="n">mean_val</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">na</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">mean_gen</span><span class="p">,[</span><span class="s2">&quot;specific&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mean_val</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">mean</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rr&#39;</span><span class="p">]))</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+<span class="n">mean_val</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">mean_gen</span> <span class="o">=</span> <span class="n">mean_val</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">na</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">mean_gen</span><span class="p">,[</span><span class="s2">&quot;rr&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mean_val</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">mean</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;fr&#39;</span><span class="p">]))</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+<span class="n">mean_val</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">mean_gen</span> <span class="o">=</span> <span class="n">mean_val</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">na</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">mean_gen</span><span class="p">,[</span><span class="s2">&quot;fr&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mean_val</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">mean</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rnr&#39;</span><span class="p">]))</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+<span class="n">mean_val</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">mean_gen</span> <span class="o">=</span> <span class="n">mean_val</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">na</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">mean_gen</span><span class="p">,[</span><span class="s2">&quot;rnr&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mean_val</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">mean</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">]))</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+<span class="n">mean_val</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">mean_gen</span> <span class="o">=</span> <span class="n">mean_val</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">na</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">mean_gen</span><span class="p">,[</span><span class="s2">&quot;i&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+</div>
+<div class="section" id="creating-binary-target-feature-from-extant-column-for-classification">
+<h2>Creating binary target feature from extant column for classification<a class="headerlink" href="#creating-binary-target-feature-from-extant-column-for-classification" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;specific_classification&#39;</span><span class="p">,</span><span class="n">when</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">specific</span> <span class="o">&gt;=</span> <span class="mf">583470.7303370787</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">otherwise</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+</div>
+<div class="section" id="using-stringindexer-for-categorical-encoding-of-string-type-columns">
+<h2>Using StringIndexer for categorical encoding of string type columns<a class="headerlink" href="#using-stringindexer-for-categorical-encoding-of-string-type-columns" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.ml.feature</span> <span class="kn">import</span> <span class="n">StringIndexer</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">indexer</span> <span class="o">=</span> <span class="n">StringIndexer</span><span class="p">(</span><span class="n">inputCol</span><span class="o">=</span><span class="s2">&quot;province&quot;</span><span class="p">,</span> <span class="n">outputCol</span><span class="o">=</span><span class="s2">&quot;provinceIndex&quot;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">indexer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">indexer</span> <span class="o">=</span> <span class="n">StringIndexer</span><span class="p">(</span><span class="n">inputCol</span><span class="o">=</span><span class="s2">&quot;reg&quot;</span><span class="p">,</span> <span class="n">outputCol</span><span class="o">=</span><span class="s2">&quot;regionIndex&quot;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">indexer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout">+---+--------+---------+------------------+----+-------+--------+------------------+----------+----------+-------+-----------+-------+-----------------------+-------------+-----------+
+_c0|province| specific|           general|year|    gdp|     fdi|               rnr|        rr|         i|     fr|        reg|     it|specific_classification|provinceIndex|regionIndex|
++---+--------+---------+------------------+----+-------+--------+------------------+----------+----------+-------+-----------+-------+-----------------------+-------------+-----------+
+  0|   Anhui| 147002.0|309127.53846153844|1996| 2093.3| 50661.0|               0.0|       0.0|       0.0|1128873| East China| 631930|                      0|          0.0|        0.0|
+  1|   Anhui| 151981.0|309127.53846153844|1997|2347.32| 43443.0|               0.0|       0.0|       0.0|1356287| East China| 657860|                      0|          0.0|        0.0|
+  2|   Anhui| 174930.0|309127.53846153844|1998|2542.96| 27673.0|               0.0|       0.0|       0.0|1518236| East China| 889463|                      0|          0.0|        0.0|
+  3|   Anhui| 285324.0|309127.53846153844|1999|2712.34| 26131.0|0.0355944252244898|0.05968862|0.08376352|1646891| East China|1227364|                      0|          0.0|        0.0|
+  4|   Anhui| 195580.0|           32100.0|2000|2902.09| 31847.0|               0.0|       0.0|       0.0|1601508| East China|1499110|                      0|          0.0|        0.0|
+  5|   Anhui| 250898.0|309127.53846153844|2001|3246.71| 33672.0|               0.0|       0.0|       0.0|1672445| East China|2165189|                      0|          0.0|        0.0|
+  6|   Anhui| 434149.0|           66529.0|2002|3519.72| 38375.0|               0.0|       0.0|       0.0|1677840| East China|2404936|                      0|          0.0|        0.0|
+  7|   Anhui| 619201.0|           52108.0|2003|3923.11| 36720.0|               0.0|       0.0|       0.0|1896479| East China|2815820|                      1|          0.0|        0.0|
+  8|   Anhui| 898441.0|          349699.0|2004| 4759.3| 54669.0|               0.0|       0.0|       0.0|2522449| East China|3422176|                      1|          0.0|        0.0|
+  9|   Anhui| 898441.0|309127.53846153844|2005|5350.17| 69000.0|               0.0|       0.0| 0.3243243|2522449| East China|3874846|                      1|          0.0|        0.0|
+ 10|   Anhui|1457872.0|          279052.0|2006| 6112.5|139354.0|               0.0|       0.0| 0.3243243|3434548| East China|5167300|                      1|          0.0|        0.0|
+ 11|   Anhui|2213991.0|          178705.0|2007|7360.92|299892.0|               0.0|       0.0| 0.3243243|4468640| East China|7040099|                      1|          0.0|        0.0|
+ 12| Beijing| 165957.0|309127.53846153844|1996| 1789.2|155290.0|0.0355944252244898|0.05968862|0.08376352| 634562|North China| 508135|                      0|          1.0|        4.0|
+ 13| Beijing| 165957.0|309127.53846153844|1997|2077.09|159286.0|               0.0|       0.0|       0.6| 634562|North China| 569283|                      0|          1.0|        4.0|
+ 14| Beijing| 245198.0|309127.53846153844|1998|2377.18|216800.0|               0.0|       0.0|      0.53| 938788|North China| 695528|                      0|          1.0|        4.0|
+ 15| Beijing| 388083.0|309127.53846153844|1999|2678.82|197525.0|               0.0|       0.0|      0.53|2522449|North China| 944047|                      0|          1.0|        4.0|
+ 16| Beijing| 281769.0|          188633.0|2000|3161.66|168368.0|               0.0|       0.0|      0.53|1667114|North China| 757990|                      0|          1.0|        4.0|
+ 17| Beijing| 441923.0|309127.53846153844|2001|3707.96|176818.0|               0.0|       0.0|      0.53|2093925|North China|1194728|                      0|          1.0|        4.0|
+ 18| Beijing| 558569.0|          280277.0|2002| 4315.0|172464.0|               0.0|       0.0|      0.53|2511249|North China|1078754|                      0|          1.0|        4.0|
+ 19| Beijing| 642581.0|          269596.0|2003|5007.21|219126.0|               0.0| 0.7948718|       0.0|2823366|North China|1426600|                      1|          1.0|        4.0|
++---+--------+---------+------------------+----+-------+--------+------------------+----------+----------+-------+-----------+-------+-----------------------+-------------+-----------+
+only showing top 20 rows
+
+</div></div></div>
+</div>
+</div>
+<div class="section" id="using-vectorassembler-to-prepare-features-for-machine-learning">
+<h2>Using VectorAssembler to prepare features for machine learning<a class="headerlink" href="#using-vectorassembler-to-prepare-features-for-machine-learning" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.ml.linalg</span> <span class="kn">import</span> <span class="n">Vectors</span>
+<span class="kn">from</span> <span class="nn">pyspark.ml.feature</span> <span class="kn">import</span> <span class="n">VectorAssembler</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout">Out[375]: [&#39;_c0&#39;,
+ &#39;province&#39;,
+ &#39;specific&#39;,
+ &#39;general&#39;,
+ &#39;year&#39;,
+ &#39;gdp&#39;,
+ &#39;fdi&#39;,
+ &#39;rnr&#39;,
+ &#39;rr&#39;,
+ &#39;i&#39;,
+ &#39;fr&#39;,
+ &#39;reg&#39;,
+ &#39;it&#39;,
+ &#39;specific_classification&#39;,
+ &#39;provinceIndex&#39;,
+ &#39;regionIndex&#39;]</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">assembler</span> <span class="o">=</span> <span class="n">VectorAssembler</span><span class="p">(</span>
+ <span class="n">inputCols</span><span class="o">=</span><span class="p">[</span>
+ <span class="s1">&#39;provinceIndex&#39;</span><span class="p">,</span>
+<span class="c1"># &#39;specific&#39;,</span>
+ <span class="s1">&#39;general&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;year&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;gdp&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;fdi&#39;</span><span class="p">,</span>
+ <span class="c1">#&#39;rnr&#39;,</span>
+ <span class="c1">#&#39;rr&#39;,</span>
+ <span class="c1">#&#39;i&#39;,</span>
+ <span class="c1">#&#39;fr&#39;,</span>
+ <span class="s1">&#39;regionIndex&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;it&#39;</span>
+ <span class="p">],</span>
+ <span class="n">outputCol</span><span class="o">=</span><span class="s2">&quot;features&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">output</span> <span class="o">=</span> <span class="n">assembler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">final_data</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;features&quot;</span><span class="p">,</span> <span class="s2">&quot;specific&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+</div>
+<div class="section" id="spliting-data-into-train-and-test">
+<h2>Spliting data into train and test<a class="headerlink" href="#spliting-data-into-train-and-test" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">train_data</span><span class="p">,</span><span class="n">test_data</span> <span class="o">=</span> <span class="n">final_data</span><span class="o">.</span><span class="n">randomSplit</span><span class="p">([</span><span class="mf">0.7</span><span class="p">,</span><span class="mf">0.3</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+</div>
+<div class="section" id="regression-with-pyspark-ml">
+<h2>Regression with Pyspark ML<a class="headerlink" href="#regression-with-pyspark-ml" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.ml.regression</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="n">lr</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">(</span><span class="n">labelCol</span><span class="o">=</span><span class="s1">&#39;specific&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+</div>
+<div class="section" id="fitting-the-linear-regression-model-to-the-training-data">
+<h2>Fitting the linear regression model to the training data<a class="headerlink" href="#fitting-the-linear-regression-model-to-the-training-data" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lrModel</span> <span class="o">=</span> <span class="n">lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+</div>
+<div class="section" id="coefficients-and-intercept-of-the-linear-regression-model">
+<h2>Coefficients and Intercept of the linear regression model<a class="headerlink" href="#coefficients-and-intercept-of-the-linear-regression-model" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Coefficients: </span><span class="si">{}</span><span class="s2"> Intercept: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lrModel</span><span class="o">.</span><span class="n">coefficients</span><span class="p">,</span><span class="n">lrModel</span><span class="o">.</span><span class="n">intercept</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout">Coefficients: [-4936.461707001148,0.8007702471080539,-3994.683052325085,-7.5033201950338,0.42095493334994133,50994.51222529955,0.2531915644818595] Intercept: 7695214.561654471
+</div></div></div>
+</div>
+</div>
+<div class="section" id="evaluating-trained-linear-regression-model-on-the-test-data">
+<h2>Evaluating trained linear regression model on the test data<a class="headerlink" href="#evaluating-trained-linear-regression-model-on-the-test-data" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">test_results</span> <span class="o">=</span> <span class="n">lrModel</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+</div>
+<div class="section" id="metrics-of-trained-linear-regression-model-on-the-test-data-rmse-mse-r2">
+<h2>Metrics of trained linear regression model on the test data (RMSE, MSE, R2)<a class="headerlink" href="#metrics-of-trained-linear-regression-model-on-the-test-data-rmse-mse-r2" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;RMSE: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">test_results</span><span class="o">.</span><span class="n">rootMeanSquaredError</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MSE: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">test_results</span><span class="o">.</span><span class="n">meanSquaredError</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R2: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">test_results</span><span class="o">.</span><span class="n">r2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout">RMSE: 292695.0825058327
+MSE: 85670411323.0962
+R2: 0.7853651103073853
+</div></div></div>
+</div>
+</div>
+<div class="section" id="looking-at-correlations-with-corr">
+<h2>Looking at correlations with corr<a class="headerlink" href="#looking-at-correlations-with-corr" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="kn">import</span> <span class="n">corr</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">corr</span><span class="p">(</span><span class="s1">&#39;specific&#39;</span><span class="p">,</span><span class="s1">&#39;gdp&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout">+-------------------+
+corr(specific, gdp)|
++-------------------+
+ 0.5141876884991972|
++-------------------+
+
+</div></div></div>
+</div>
+</div>
+<div class="section" id="classification-with-pyspark-ml">
+<h2>Classification with Pyspark ML<a class="headerlink" href="#classification-with-pyspark-ml" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.ml.classification</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span><span class="p">,</span><span class="n">GBTClassifier</span><span class="p">,</span><span class="n">RandomForestClassifier</span>
+<span class="kn">from</span> <span class="nn">pyspark.ml</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+</div>
+<div class="section" id="decisiontreeclassifier-randomforestclassifier-and-gbtclassifier">
+<h2>DecisionTreeClassifier, RandomForestClassifier and GBTClassifier<a class="headerlink" href="#decisiontreeclassifier-randomforestclassifier-and-gbtclassifier" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dtc</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">labelCol</span><span class="o">=</span><span class="s1">&#39;specific_classification&#39;</span><span class="p">,</span><span class="n">featuresCol</span><span class="o">=</span><span class="s1">&#39;features&#39;</span><span class="p">)</span>
+<span class="n">rfc</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">labelCol</span><span class="o">=</span><span class="s1">&#39;specific_classification&#39;</span><span class="p">,</span><span class="n">featuresCol</span><span class="o">=</span><span class="s1">&#39;features&#39;</span><span class="p">)</span>
+<span class="n">gbt</span> <span class="o">=</span> <span class="n">GBTClassifier</span><span class="p">(</span><span class="n">labelCol</span><span class="o">=</span><span class="s1">&#39;specific_classification&#39;</span><span class="p">,</span><span class="n">featuresCol</span><span class="o">=</span><span class="s1">&#39;features&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+</div>
+<div class="section" id="selecting-features-and-binary-target">
+<h2>Selecting features and binary target<a class="headerlink" href="#selecting-features-and-binary-target" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">final_data</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;features&quot;</span><span class="p">,</span> <span class="s2">&quot;specific_classification&quot;</span><span class="p">)</span>
+<span class="n">train_data</span><span class="p">,</span><span class="n">test_data</span> <span class="o">=</span> <span class="n">final_data</span><span class="o">.</span><span class="n">randomSplit</span><span class="p">([</span><span class="mf">0.7</span><span class="p">,</span><span class="mf">0.3</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+</div>
+<div class="section" id="fitting-the-classifiers-to-the-training-data">
+<h2>Fitting the Classifiers to the Training Data<a class="headerlink" href="#fitting-the-classifiers-to-the-training-data" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rfc_model</span> <span class="o">=</span> <span class="n">rfc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span>
+<span class="n">gbt_model</span> <span class="o">=</span> <span class="n">gbt</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span>
+<span class="n">dtc_model</span> <span class="o">=</span> <span class="n">dtc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+</div>
+<div class="section" id="classifier-predictions-on-test-data">
+<h2>Classifier predictions on test data<a class="headerlink" href="#classifier-predictions-on-test-data" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dtc_predictions</span> <span class="o">=</span> <span class="n">dtc_model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
+<span class="n">rfc_predictions</span> <span class="o">=</span> <span class="n">rfc_model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
+<span class="n">gbt_predictions</span> <span class="o">=</span> <span class="n">gbt_model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+</div>
+<div class="section" id="evaluating-classifiers-using-pyspark-ml-evaluation-and-multiclassclassificationevaluator">
+<h2>Evaluating Classifiers using pyspark.ml.evaluation and MulticlassClassificationEvaluator<a class="headerlink" href="#evaluating-classifiers-using-pyspark-ml-evaluation-and-multiclassclassificationevaluator" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.ml.evaluation</span> <span class="kn">import</span> <span class="n">MulticlassClassificationEvaluator</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+<div class="section" id="classifier-accuracy">
+<h3>Classifier Accuracy<a class="headerlink" href="#classifier-accuracy" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">acc_evaluator</span> <span class="o">=</span> <span class="n">MulticlassClassificationEvaluator</span><span class="p">(</span><span class="n">labelCol</span><span class="o">=</span><span class="s2">&quot;specific_classification&quot;</span><span class="p">,</span> <span class="n">predictionCol</span><span class="o">=</span><span class="s2">&quot;prediction&quot;</span><span class="p">,</span> <span class="n">metricName</span><span class="o">=</span><span class="s2">&quot;accuracy&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="classifier-accuracy-metrics">
+<h2>Classifier Accuracy Metrics<a class="headerlink" href="#classifier-accuracy-metrics" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dtc_acc</span> <span class="o">=</span> <span class="n">acc_evaluator</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">dtc_predictions</span><span class="p">)</span>
+<span class="n">rfc_acc</span> <span class="o">=</span> <span class="n">acc_evaluator</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">rfc_predictions</span><span class="p">)</span>
+<span class="n">gbt_acc</span> <span class="o">=</span> <span class="n">acc_evaluator</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">gbt_predictions</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout"></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Decision tree accuracy: </span><span class="si">{0:2.2f}</span><span class="s1">%&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dtc_acc</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Random forest ensemble accuracy: </span><span class="si">{0:2.2f}</span><span class="s1">%&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rfc_acc</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;GBT accuracy: </span><span class="si">{0:2.2f}</span><span class="s1">%&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gbt_acc</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout">--------------------------------------------------------------------------------
+Decision tree accuracy: 81.98%
+--------------------------------------------------------------------------------
+Random forest ensemble accuracy: 88.29%
+--------------------------------------------------------------------------------
+GBT accuracy: 81.08%
+--------------------------------------------------------------------------------
+</div></div></div>
+</div>
+</div>
+<div class="section" id="classification-correlation-with-corr">
+<h2>Classification Correlation with Corr<a class="headerlink" href="#classification-correlation-with-corr" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">corr</span><span class="p">(</span><span class="s1">&#39;specific_classification&#39;</span><span class="p">,</span><span class="s1">&#39;fdi&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout">+----------------------------------+
+corr(specific_classification, fdi)|
++----------------------------------+
+                 0.307429849493392|
++----------------------------------+
+
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">corr</span><span class="p">(</span><span class="s1">&#39;specific_classification&#39;</span><span class="p">,</span><span class="s1">&#39;gdp&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class="ansiout">+----------------------------------+
+corr(specific_classification, gdp)|
++----------------------------------+
+                 0.492176921599151|
++----------------------------------+
+
+</div></div></div>
+</div>
+<p>This post includes code adapted from <a class="reference external" href="https://udemy.com/course/spark-and-python-for-big-data-with-pyspark">Spark and Python for Big Data udemy course</a> and <a class="reference external" href="https://github.com/SuperJohn/spark-and-python-for-big-data-with-pyspark">Spark and Python for Big Data notebooks</a>.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python_defaultSpec_1597976666914",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python_defaultSpec_1597976666914'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="2020-10-01-StockMarketPortfolioAnaylsis_snp%2B.html" title="previous page">Stock Market and Portfolio Anaylsis of the S&amp;P 500 various metrics with pandas and quandl</a>
+    <a class='right-next' id="next-link" href="2020-08-16-pandas-stats-fiscal.html" title="next page">Using Pandas and Statsmodels for Regression with Fiscal Data</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By David Kearney<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>
