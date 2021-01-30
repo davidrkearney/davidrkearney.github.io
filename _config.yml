@@ -21,6 +21,13 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: 
 github_username: davidrkearney
 
+# Github and twitter are optional:
+minima:
+  social_links:
+    twitter: 
+    github: davidrkearney
+
+
 
 # Build settings
 markdown: kramdown
