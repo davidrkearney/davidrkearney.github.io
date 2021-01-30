@@ -10,7 +10,7 @@ layout: home
   <body>
     <div class="container">
       <div class="image">
-        <img align="right" src="http://davidraymondkearney.com/assets/images/Headshot_DRK2.jpg" width="250px" height="250px" style="border-radius:50%">
+        <img align="right" src="http://davidraymondkearney.com/assets/images/Headshot_DRK2.jpg" width="150px" height="150px" style="border-radius:50%">
       </div>
       <div class="text">
       </div>
