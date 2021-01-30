@@ -15,7 +15,7 @@
 # in the templates via {{ site.myvariable }}.
 title: David Raymond Kearney
 email: david@davidraymondkearney.com
-description: Political economist by training, data scientist by profession.
+description: David Raymond Kearny is a political economist by training and data scientist by profession. He works to design experiments and employ randomized control trials and bring machine learning models to production to improve health outcomes.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: 
