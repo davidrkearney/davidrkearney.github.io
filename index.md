@@ -5,6 +5,22 @@
 layout: home
 ---
 
+
+
+  <body>
+    <div class="container">
+      <div class="image">
+        <img align="right" src="http://davidraymondkearney.com/assets/images/Headshot_DRK2.jpg" width="250px" height="250px" style="border-radius:50%">
+      </div>
+      <div class="text">
+      </div>
+    </div>
+  </body>
+
+
+
+
+
 I am David Raymond Kearney, political economist by training, data scientist by profession. I grew up in Iowa and have lived there, China, Durham, Vietnam and Chicago.
 
 
