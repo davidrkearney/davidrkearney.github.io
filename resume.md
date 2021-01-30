@@ -4,4 +4,4 @@ title: Resume
 permalink: /Resume/
 ---
 
-Please find my resume at the link here: https://davidraymondkearney.com/Kearney_Data_Science/
+Please find my resume at the link here: **[here.]()** 
