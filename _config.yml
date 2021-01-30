@@ -19,7 +19,7 @@ description: I am David Raymond Kearney, political economist by training, data s
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: 
-github_username:
+github_username: davidrkearney
 
 
 # Build settings
