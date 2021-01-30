@@ -1,1 +1,89 @@
-theme: jekyll-theme-midnight
+# Build settings
+theme: minima
+url: "https://davidraymondkearney.com/"
+title: David Raymond Kearney
+tagline: David Raymond Kearney is a data scientist.
+author:
+  name: David Raymond Kearney
+  email: david@davidraymondkearney.com
+description: > # this means to ignore newlines until "show_excerpts:"
+I am David Raymond Kearney, political economist by training, data scientist by profession.
+
+show_excerpts: false # set to true to show excerpts on the homepage
+
+# social_links:
+# twitter_username: 
+# github_username: 
+# linkedin_username:
+
+google_analytics:
+
+og_image: /assets/images/Headshot_DRK.jpg
+
+# social:
+#   type: Person
+#   name: David Raymond Kearney
+#   links:
+#     - "https://twitter.com/trmcdade"
+#     - "https://www.linkedin.com/in/timothymcdade"
+#
+
+header_pages:
+  - bio.md
+  # - education.md
+  # - professionalexperience.md
+  - publications.md
+  - skills.md
+  - cv.md
+
+# layout: default
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  # - jekyll-feed
+  # - jekyll-sass-converter
+
+# Minima date format
+# refer to https://shopify.github.io/liquid/filters/date/ if you want to customize this
+
+minima:
+  date_format: "%b %-d, %Y"
+
+  # generate social links in footer
+  social_links:
+    #twitter: trmcdade
+    github:  davidrkearney
+    # devto: jekyll
+    # dribbble: jekyll
+    # facebook: jekyll
+    # flickr:   jekyll
+    # instagram: jekyll
+    linkedin: davidrkearney
+    # pinterest: jekyll
+    # youtube: jekyll
+    # youtube_channel: UC8CXR0-3I70i1tfPg1PAE1g
+    # youtube_channel_name: CloudCannon
+    # telegram: jekyll
+    # googleplus: +jekyll
+    # microdotblog: jekyll
+    # keybase: jekyll
+
+    # Mastodon instances
+    # mastodon:
+    # - username: jekyll
+    #   instance: example.com
+    # - username: jekyll2
+    #   instance: example.com
+
+    # GitLab instances
+    # gitlab:
+    # - username: jekyll
+    #   instance: example.com
+    # - username: jekyll2
+    #   instance: example.com
+
+# If you want to link only specific pages in your header, uncomment
+# this and add the path to the pages in order as they should show up
+#header_pages:
+# - about.md

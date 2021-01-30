@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>http://localhost:4000/bio.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/cv.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/education.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/professionalexperience.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/publications.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/skills.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/assets/cv/McDade_CV.pdf</loc>
+<lastmod>2021-01-29T19:24:30-06:00</lastmod>
+</url>
+</urlset>
