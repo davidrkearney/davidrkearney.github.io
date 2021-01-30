@@ -6,10 +6,6 @@ layout: home
 ---
 
 
-
-
-
-
 I am David Raymond Kearney, political economist by training, data scientist by profession. I grew up in Iowa and have lived there, China, Durham, Vietnam and Chicago.
 
 
