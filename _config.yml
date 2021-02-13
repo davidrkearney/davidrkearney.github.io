@@ -8,24 +8,71 @@
 # For technical reasons, this file is *NOT* reloaded automatically when you use
 # 'bundle exec jekyll serve'. If you change this file, please restart the server process.
 
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
-title: David Raymond Kearney
-email: david@davidraymondkearney.com
-description: David Raymond Kearney is a political economist by training and data scientist by profession. He works to design experiments and employ randomized control trials and bring machine learning models to production to improve health outcomes.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "davidraymondkearney.com" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: 
-github_username: davidrkearney
 
-# Github and twitter are optional:
+
+# Build settings
+theme: minima
+url: "davidraymondkearney.com" # the base hostname & protocol for your site, e.g. http://example.com
+title: David Raymond Kearney
+tagline: David Raymond Kearney is a data scientist.
+author:
+  name: David Raymond Kearney
+  email: david@davidraymondkearney.com
+  github:  davidrkearney
+  linkedin: davidrkearney
+ # web: davidraymondkearney.com
+#  bio: David Raymond Kearney is a political economist by training and data scientist by profession. He works to design experiments and employ randomized control trials and bring machine learning models to production to improve health outcomes.
+#  image: https://images.unsplash.com/photo-1613132272438-9e409d2b2690?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D#&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80
+description: > # this means to ignore newlines until "show_excerpts:"
+  David Raymond Kearney is a political economist by training and data scientist by profession. He works to design experiments and employ randomized control trials and bring machine learning models to production to improve health outcomes.
+show_excerpts: false # set to true to show excerpts on the homepage
+
+
+  
+    
+
+
+
+github_username: davidrkearney
+baseurl: "" # the subpath of your site, e.g. /blog
+
+
+# Minima date format
+# refer to https://shopify.github.io/liquid/filters/date/ if you want to customize this
 minima:
+  date_format: "%b %-d, %Y"
+
+  # generate social links in footer
   social_links:
-    twitter: 
-    github: davidrkearney
+    github:  davidrkearney
+    # devto: jekyll
+    # dribbble: jekyll
+    # facebook: jekyll
+    # flickr:   jekyll
+    # instagram: jekyll
+    linkedin: davidrkearney
+    # pinterest: jekyll
+    # youtube: jekyll
+    # youtube_channel: UC8CXR0-3I70i1tfPg1PAE1g
+    # youtube_channel_name: CloudCannon
+    # telegram: jekyll
+    # googleplus: +jekyll
+    # microdotblog: jekyll
+    # keybase: jekyll
+
+    # Mastodon instances
+    # mastodon:
+    # - username: jekyll
+    #   instance: example.com
+    # - username: jekyll2
+    #   instance: example.com
+
+    # GitLab instances
+    # gitlab:
+    # - username: jekyll
+    #   instance: example.com
+    # - username: jekyll2
+    #   instance: example.com
 
 
 
